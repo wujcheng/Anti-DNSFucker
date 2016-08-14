@@ -5,10 +5,10 @@
     Public Sub New()
     End Sub
 
-    Public Sub New(ByVal Code As String)
+    Public Sub New(ByVal Behaviour As Behaviour, ByVal DomainName As String)
         With Me
-            .Behaviour = Val(Code.Remove(Code.IndexOf("#")))
-            .DomainName = Code.Remove(0, Code.IndexOf("#") + 1)
+            .Behaviour = Behaviour
+            .DomainName = DomainName
         End With
     End Sub
 End Class

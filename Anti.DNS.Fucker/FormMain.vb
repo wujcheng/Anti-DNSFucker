@@ -5,7 +5,7 @@
         InitializeComponent()
 
         ' 在 InitializeComponent() 调用之后添加任何初始化。
-        Dim wi As New WebAddressItem("2#www.google.com")
-
+        Dim wap As New WebAddressPanel
+        Me.Controls.Add(wap)
     End Sub
 End Class

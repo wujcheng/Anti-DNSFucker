@@ -94,6 +94,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="WaterMarkTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebAddressItem.vb" />
     <Compile Include="WebAddressPanel.vb">
       <SubType>Component</SubType>

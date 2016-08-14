@@ -22,5 +22,34 @@ Anti.DNS.Fucker
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="T:Anti.DNS.Fucker.WaterMarkTextBox">
+ <summary>
+ This class inherits System.Windows.Forms.TextBox.
+ Comparing with System.Windows.Forms.TextBoxthe, this WaterMarkTextBox can show a water mark when it is empty.
+ </summary>
+</member>
+<member name="F:Anti.DNS.Fucker.WaterMarkTextBox.WaterMarkText">
+ <summary>
+ This is the water mark which is shown when the WaterMarkTextBox's text is empty.
+ </summary>
+</member>
+<member name="M:Anti.DNS.Fucker.WaterMarkTextBox.#ctor">
+ <summary>
+ This is the constructor.
+ </summary>
+</member>
+<member name="M:Anti.DNS.Fucker.WaterMarkTextBox.OnPaint(System.Windows.Forms.PaintEventArgs)">
+ <summary>
+ Override OnPaint.
+ </summary>
+ <param name="args"></param>
+</member>
+<member name="M:Anti.DNS.Fucker.WaterMarkTextBox.WaterMark_Toggel(System.Object,System.EventArgs)">
+ <summary>
+ This sub is triggered when text is changed or focus is lost.
+ </summary>
+ <param name="sender"></param>
+ <param name="args"></param>
+</member>
 </members>
 </doc>
