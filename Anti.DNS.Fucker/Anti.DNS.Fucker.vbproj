@@ -47,6 +47,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Qontrols">
+      <HintPath>..\..\Qontrols\Release\Qontrols.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -96,9 +99,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="WaterMarkTextBox.vb">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebAddressItem.vb" />
     <Compile Include="WebAddressPanel.vb">

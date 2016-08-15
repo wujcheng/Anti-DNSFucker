@@ -5,7 +5,6 @@ Public Class ToolStripTextBoxWithWaterMark
 
     Shadows TextBox As TextBox
 
-
     Private Const ECM_FIRST As UInteger = &H1500
     Private Const EM_SETCUEBANNER As UInteger = ECM_FIRST + 1
 
@@ -18,24 +17,21 @@ Public Class ToolStripTextBoxWithWaterMark
 
         With TextBox
             .BorderStyle = BorderStyle.FixedSingle
-            'AddHandler .TextChanged, AddressOf TextBox_TextChanged
-            'AddHandler .Leave, AddressOf TextBox_TextChanged
         End With
 
-        SetWatermark("Domain Name")
     End Sub
 
-    Private Sub SetWatermark(watermarkText As String)
-        SendMessage(TextBox.Handle, EM_SETCUEBANNER, 0, watermarkText)
+    Public Property WaterMarkText As String
+        Get
+            Return TextBox.Tag
+        End Get
+        Set(value As String)
+            TextBox.Tag = value
+            SetWatermark(value)
+        End Set
+    End Property
+
+    Private Sub SetWaterMark(waterMarkText As String)
+        SendMessage(TextBox.Handle, EM_SETCUEBANNER, 0, waterMarkText)
     End Sub
-
-
-    'Private Sub TextBox_TextChanged()
-    '    If TextBox.Text = "" Then
-    '        Dim Graphics As Graphics = TextBox.CreateGraphics
-    '        Graphics.DrawString("23333", (New ToolStripMenuItem).Font, SystemBrushes.GrayText, New Point(0, 2))
-    '    End If
-    'End Sub
-
-
 End Class
