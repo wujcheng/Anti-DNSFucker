@@ -75,6 +75,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Icons.vb" />
+    <Compile Include="Controls\ToolStripCheckBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToolStripTextBoxWithWaterMark.vb">
       <SubType>Component</SubType>
     </Compile>

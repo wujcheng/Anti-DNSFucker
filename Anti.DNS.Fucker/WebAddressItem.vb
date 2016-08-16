@@ -1,12 +1,14 @@
 ﻿Public Class WebAddressItem
+    Public Enable As Boolean = True
     Public DomainName As String = ""
     Public Behaviour As Behaviour = Behaviour.GetAllAddresses
 
     Public Sub New()
     End Sub
 
-    Public Sub New(ByVal Behaviour As Behaviour, ByVal DomainName As String)
+    Public Sub New(ByVal Enable As Boolean, ByVal Behaviour As Behaviour, ByVal DomainName As String)
         With Me
+            .Enable = Enable
             .Behaviour = Behaviour
             .DomainName = DomainName
         End With
