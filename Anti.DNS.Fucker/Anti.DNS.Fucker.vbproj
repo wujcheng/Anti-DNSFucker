@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Icons.vb" />
+    <Compile Include="Controls\TextBoxWithWaterMark.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToolStripCheckBox.vb">
       <SubType>Component</SubType>
     </Compile>
