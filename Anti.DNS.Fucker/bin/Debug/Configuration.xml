@@ -1,0 +1,147 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="DomainNameList">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Enable" type="xs:string" minOccurs="0" />
+                <xs:element name="Domain_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Get_x0020_IPv4" type="xs:string" minOccurs="0" />
+                <xs:element name="Get_x0020_IPv6" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name>www.baidu.com</Domain_x0020_Name>
+    <Get_x0020_IPv4>True</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name>www.google.com</Domain_x0020_Name>
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>True</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>True</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+  <DomainNameList>
+    <Enable>False</Enable>
+    <Domain_x0020_Name />
+    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Get_x0020_IPv6>False</Get_x0020_IPv6>
+  </DomainNameList>
+</NewDataSet>

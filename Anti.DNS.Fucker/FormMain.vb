@@ -10,7 +10,7 @@ Public Class FormMain
     Private LabelHeadGetIPv4Address As Label
     Private LabelHeadEnable As Label
 
-    Private TableLayoutPanelList As TableLayoutPanel
+    Private TableLayoutPanelList As TableLayoutPanelWithDoubleBuffer
 
     Private ToolStrip As ToolStrip
     Private ToolStripLabelTitle As ToolStripLabel
@@ -22,10 +22,15 @@ Public Class FormMain
     Private StatusStrip As StatusStrip
 
     Private TopPadding As Padding = New Padding(0, 7, 0, 0)
+    Private CheckBoxPadding As Padding = New Padding(4, 0, 0, 0)
     Private TransparentColor As Color = Color.FromArgb(0, Color.Black)
     Private MouseDownLocation As Point
     Private FormLastLocation As Point
     Private ItemHeight As Integer = 27
+
+    Private Configuration As Configuration
+    Private ConfigurationPath As String = Application.StartupPath & "\Configuration.xml"
+    Private CheckBoxSelectedCheckedChangedEventEnable As Boolean = True
 
     Public Sub New()
         InitializeComponent()
@@ -33,9 +38,14 @@ Public Class FormMain
         With Me
             .Width = 400
             .Height = 500
+            .Text = "Anti-DNSFucker"
             .ControlBox = False
             .FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         End With
+
+        Configuration = New Configuration
+        If Configuration.Load(ConfigurationPath) Then
+        End If
 
         InitializeToolStrip()
         InitializeStatusStrip()
@@ -46,7 +56,7 @@ Public Class FormMain
     Private Sub InitializeToolStrip()
         ToolStripLabelTitle = New ToolStripLabel
         With ToolStripLabelTitle
-            .Text = "Anti-DNSFucker"
+            .Text = Me.Text
 
             AddHandler .MouseDown, AddressOf ToolStrip_MouseDown
             AddHandler .MouseUp, AddressOf ToolStrip_MouseUp
@@ -104,27 +114,58 @@ Public Class FormMain
 
     Private Sub ToolStripButton_Click(sender As Object, e As EventArgs)
         If sender Is ToolStripButtonQuit Then
+            SaveConfiguration()
             End
         End If
 
         If sender Is ToolStripButtonAdd Then
-            AddNewDomainName()
+            AddNewItem()
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonSaveAs Then
+            Test()
             Exit Sub
         End If
     End Sub
 
-    Private Sub AddNewDomainName()
+    Private Sub SaveConfiguration()
+        Dim DataTable As New DataTable
+        DataTable.TableName = TableNames.DomainNameList
+        DataTable.Columns.Add(LabelHeadEnable.Text)
+        DataTable.Columns.Add(LabelHeadDomainName.Text)
+        DataTable.Columns.Add(LabelHeadGetIPv4Address.Text)
+        DataTable.Columns.Add(LabelHeadGetIPv6Address.Text)
+
+        For i As Integer = 0 To TableLayoutPanelList.RowCount - 1
+            Dim Row(3) As String
+            Row(0) = CType(TableLayoutPanelList.GetControlFromPosition(1, i), CheckBox).Checked
+            Row(1) = CType(TableLayoutPanelList.GetControlFromPosition(2, i), TextBox).Text
+            Row(2) = CType(TableLayoutPanelList.GetControlFromPosition(3, i), CheckBox).Checked
+            Row(3) = CType(TableLayoutPanelList.GetControlFromPosition(4, i), CheckBox).Checked
+            DataTable.Rows.Add(Row)
+        Next
+
+        Configuration.SetConfig(DataTable)
+        Configuration.Save()
+    End Sub
+
+    Private Sub AddNewItem()
         With TableLayoutPanelList
+            .SuspendLayout()
             .RowStyles.Add(New RowStyle(SizeType.Absolute, ItemHeight))
 
             Dim CheckBoxSelected As New CheckBox
             With CheckBoxSelected
                 .Text = ""
+                .Padding = CheckBoxPadding
+                AddHandler .CheckedChanged, AddressOf CheckBoxSelected_CheckedChanged
             End With
 
             Dim CheckBoxEnable As New CheckBox
             With CheckBoxEnable
                 .Text = ""
+                .Padding = CheckBoxPadding
             End With
 
             Dim TextBoxDomainName As New TextBoxWithWaterMark
@@ -136,11 +177,13 @@ Public Class FormMain
             Dim CheckBoxGetIPv4Address As New CheckBox
             With CheckBoxGetIPv4Address
                 .Text = ""
+                .Padding = CheckBoxPadding
             End With
 
             Dim CheckBoxGetIPv6Address As New CheckBox
             With CheckBoxGetIPv6Address
                 .Text = ""
+                .Padding = CheckBoxPadding
             End With
 
             Dim Index As Integer = .RowCount
@@ -151,7 +194,32 @@ Public Class FormMain
             .Controls.Add(CheckBoxGetIPv6Address, 4, Index)
 
             .RowCount += 1
+            Dim MaxHeight As Integer = Me.ClientSize.Height - TableLayoutPanelHead.Height - ToolStrip.Height - StatusStrip.Height
+            .Height = .RowCount * ItemHeight
+            If .Height > MaxHeight Then
+                .Height = MaxHeight
+            End If
+
+            .ResumeLayout()
         End With
+    End Sub
+
+    Private Sub CheckBoxSelected_CheckedChanged()
+        If Not CheckBoxSelectedCheckedChangedEventEnable Then
+            Exit Sub
+        End If
+
+        Dim CurrentCheckState As Boolean = CType(TableLayoutPanelList.GetControlFromPosition(0, 0), CheckBox).Checked
+
+        For i As Integer = 1 To TableLayoutPanelList.RowCount - 1
+            If Not CurrentCheckState = CType(TableLayoutPanelList.GetControlFromPosition(0, i), CheckBox).Checked Then
+                CheckBoxHeadSelectAll.CheckState = CheckState.Indeterminate
+                Exit Sub
+            End If
+        Next
+
+        CheckBoxHeadSelectAll.CheckState = If(CurrentCheckState, CheckState.Checked, CheckState.Unchecked)
+        CheckBoxHeadSelectAll.Checked = CurrentCheckState
     End Sub
 
     Private Sub ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
@@ -176,7 +244,7 @@ Public Class FormMain
 
         ' Update the location of the FormMain.
         Me.Location = New Point(Me.Location.X - Me.MouseDownLocation.X + e.Location.X,
-                            Me.Location.Y - Me.MouseDownLocation.Y + e.Location.Y)
+                                Me.Location.Y - Me.MouseDownLocation.Y + e.Location.Y)
     End Sub
 
     Private Sub InitializeStatusStrip()
@@ -191,6 +259,9 @@ Public Class FormMain
         CheckBoxHeadSelectAll = New CheckBox
         With CheckBoxHeadSelectAll
             .Text = ""
+            '.ThreeState = True
+            .Padding = CheckBoxPadding
+            AddHandler .CheckedChanged, AddressOf CheckBoxHeadSelectAll_CheckedChanged
         End With
 
         LabelHeadDomainName = New Label
@@ -223,12 +294,13 @@ Public Class FormMain
 
         TableLayoutPanelHead = New TableLayoutPanel
         With TableLayoutPanelHead
-            .Width = Me.ClientSize.Width + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth
+            .Width = Me.ClientSize.Width - System.Windows.Forms.SystemInformation.VerticalScrollBarWidth
             .Height = ItemHeight
-            .BackColor = Color.DarkGray
+            .BackColor = Me.BackColor
             .Location = New Point(0, ToolStrip.Height)
+            .Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+            '.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
 
-            .CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
             .RowStyles.Add(New RowStyle(SizeType.Absolute, .Height))
             .ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 1))
             .ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 2))
@@ -242,16 +314,67 @@ Public Class FormMain
             .Controls.Add(LabelHeadGetIPv4Address, 3, 0)
             .Controls.Add(LabelHeadGetIPv6Address, 4, 0)
             .Parent = Me
+
+            AddHandler .Paint, AddressOf TableLayoutPanelHead_Paint
+        End With
+    End Sub
+
+    Private Sub CheckBoxHeadSelectAll_CheckedChanged()
+        CheckBoxSelectedCheckedChangedEventEnable = False
+        For i As Integer = 0 To TableLayoutPanelList.RowCount - 1
+            With CType(TableLayoutPanelList.GetControlFromPosition(0, i), CheckBox)
+                .Checked = CheckBoxHeadSelectAll.Checked
+            End With
+        Next
+        CheckBoxSelectedCheckedChangedEventEnable = True
+    End Sub
+
+    Private Sub TableLayoutPanelHead_Paint(sender As Object, e As PaintEventArgs)
+        Dim Graphics As Graphics = TableLayoutPanelHead.CreateGraphics
+        Dim Pen As New Pen(Color.LightGray, 1)
+        Dim LeftPadding As Integer = 0
+
+        With TableLayoutPanelHead
+            Graphics.DrawLine(Pen, New Point(0, .Height - 1), New Point(.Width, .Height - 1))
+            ' Graphics.DrawLine(Pen, New Point(0, -1), New Point(.Width, -1))
+
+            For i As Integer = 0 To .ColumnStyles.Count - 2
+                LeftPadding += .GetColumnWidths(i)
+                Graphics.DrawLine(Pen, New Point(LeftPadding, .Height - 1), New Point(LeftPadding, 0))
+            Next
+        End With
+    End Sub
+
+    Private Sub TableLayoutPanelList_Paint(sender As Object, e As PaintEventArgs)
+        With TableLayoutPanelList
+            .SuspendLayout()
+            Dim ColumnWidths() As Integer = .GetColumnWidths()
+            If Not ColumnWidths.Count = .ColumnStyles.Count - 1 Then
+                Exit Sub
+            End If
+
+            Dim Graphics As Graphics = TableLayoutPanelList.CreateGraphics
+            Dim Pen As New Pen(Color.LightGray, 1)
+            Dim LeftPadding As Integer = 0
+
+            For i As Integer = 0 To ColumnWidths.Count - 2
+                LeftPadding += ColumnWidths(i)
+                Graphics.DrawLine(Pen, New Point(LeftPadding, .Height - 1), New Point(LeftPadding, 0))
+            Next
+            .ResumeLayout()
         End With
     End Sub
 
     Private Sub InitializeTableLayoutPanelList()
-        TableLayoutPanelList = New TableLayoutPanel
+        TableLayoutPanelList = New TableLayoutPanelWithDoubleBuffer
         With TableLayoutPanelList
             .Location = New Point(0, TableLayoutPanelHead.Height + ToolStrip.Height)
-            .Size = New Size(TableLayoutPanelHead.Width, Me.ClientSize.Height - TableLayoutPanelHead.Height - ToolStrip.Height - StatusStrip.Height)
-            .Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Top
-            ' .CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
+            .Width = Me.ClientSize.Width
+            '.Height = Me.ClientSize.Height - TableLayoutPanelHead.Height - ToolStrip.Height - StatusStrip.Height
+            .Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Top Or AnchorStyles.Right
+            '.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
+            '.BorderStyle = BorderStyle.FixedSingle
+
             .HorizontalScroll.Maximum = 0
             .AutoScroll = False
             .HorizontalScroll.Visible = False
@@ -262,7 +385,40 @@ Public Class FormMain
                 .ColumnStyles.Add(New ColumnStyle(ColumnStyle.SizeType, ColumnStyle.Width))
             Next
 
+            AddHandler .ClientSizeChanged, AddressOf TableLayoutPanelList_ClientSizeChanged
+            AddHandler .Paint, AddressOf TableLayoutPanelList_Paint
             .Parent = Me
         End With
+
+        Dim DataTable As New DataTable
+        If Not Configuration.GetConfig(TableNames.DomainNameList, DataTable) Then
+            Exit Sub
+        End If
+
+        For Each Row As DataRow In DataTable.Rows
+            AddNewItem()
+            With TableLayoutPanelList
+                CType(.GetControlFromPosition(1, .RowCount - 1), CheckBox).Checked = Row(LabelHeadEnable.Text)
+                CType(.GetControlFromPosition(2, .RowCount - 1), TextBox).Text = Row(LabelHeadDomainName.Text)
+                CType(.GetControlFromPosition(3, .RowCount - 1), CheckBox).Checked = Row(LabelHeadGetIPv4Address.Text)
+                CType(.GetControlFromPosition(4, .RowCount - 1), CheckBox).Checked = Row(LabelHeadGetIPv6Address.Text)
+            End With
+        Next
+
+        ' TableLayoutPanelList_Paint(Nothing, Nothing)
+    End Sub
+
+    Private Sub TableLayoutPanelList_ClientSizeChanged()
+        With TableLayoutPanelList
+            If .VerticalScroll.Visible = True Then
+                .Padding = New Padding(0)
+            Else
+                .Padding = New Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0)
+            End If
+        End With
+    End Sub
+
+    Private Sub Test()
+        ' MsgBox(TableLayoutPanelList.VerticalScroll.Visible)
     End Sub
 End Class
