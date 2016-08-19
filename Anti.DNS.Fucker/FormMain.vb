@@ -18,6 +18,12 @@ Public Class FormMain
     Private ToolStripButtonRemove As ToolStripButton
     Private ToolStripButtonQuit As ToolStripButton
     Private ToolStripButtonSaveAs As ToolStripButton
+    Private ToolStripButtonEnable As ToolStripButton
+    Private ToolStripButtonDisable As ToolStripButton
+    Private ToolStripButtonIPv4Enable As ToolStripButton
+    Private ToolStripButtonIPv6Enable As ToolStripButton
+    Private ToolStripButtonIPv6Disable As ToolStripButton
+    Private ToolStripButtonIPv4Disable As ToolStripButton
 
     Private StatusStrip As StatusStrip
 
@@ -36,7 +42,7 @@ Public Class FormMain
 
         With Me
             .Width = 400
-            .Height = 500
+            .Height = 300
             .Text = "Anti-DNSFucker"
             .ControlBox = False
             .FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -50,6 +56,8 @@ Public Class FormMain
         InitializeStatusStrip()
         InitializeTableLayoutPanelHead()
         InitializeTableLayoutPanelList()
+
+        ToolStripButtonUpdate()
     End Sub
 
     Private Sub InitializeToolStrip()
@@ -72,7 +80,7 @@ Public Class FormMain
         ToolStripButtonRemove = New ToolStripButton
         With ToolStripButtonRemove
             .Image = Icons.Remove
-            .ToolTipText = "Remove Selected Domain Name"
+            .ToolTipText = "Remove Selected Items"
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
@@ -90,16 +98,67 @@ Public Class FormMain
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
+        ToolstripButtonEnable = New ToolStripButton
+        With ToolstripButtonEnable
+            .Image = Icons.Enable
+            .ToolTipText = "Enable Selected Items"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
+        ToolstripButtonDisable = New ToolStripButton
+        With ToolstripButtonDisable
+            .Image = Icons.Disable
+            .ToolTipText = "Disable Selected Items"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
+        ToolStripButtonIPv4Enable = New ToolStripButton
+        With ToolStripButtonIPv4Enable
+            .Image = Icons.IPv4Enable
+            .ToolTipText = "Get IPv4 Addresses"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
+        ToolStripButtonIPv4Disable = New ToolStripButton
+        With ToolStripButtonIPv4Disable
+            .Image = Icons.IPv4Disable
+            .ToolTipText = "Don't Get IPv4 Addresses"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
+        ToolStripButtonIPv6Enable = New ToolStripButton
+        With ToolStripButtonIPv6Enable
+            .Image = Icons.IPv6Enable
+            .ToolTipText = "Get IPv6 Addresses"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
+        ToolStripButtonIPv6Disable = New ToolStripButton
+        With ToolStripButtonIPv6Disable
+            .Image = Icons.IPv6Disable
+            .ToolTipText = "Don't Get IPv6 Addresses"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
         ToolStrip = New ToolStrip
         With ToolStrip
             .GripStyle = ToolStripGripStyle.Hidden
             .RenderMode = ToolStripRenderMode.Professional
             .Parent = Me
-            .BackColor = Color.White
+            .BackColor = Color.Transparent
+
             .Items.Add(ToolStripLabelTitle)
             .Items.Add(New ToolStripSeparator)
             .Items.Add(ToolStripButtonAdd)
             .Items.Add(ToolStripButtonRemove)
+            .Items.Add(New ToolStripSeparator)
+            .Items.Add(ToolstripButtonEnable)
+            .Items.Add(ToolstripButtonDisable)
+            .Items.Add(New ToolStripSeparator)
+            .Items.Add(ToolStripButtonIPv4Enable)
+            .Items.Add(ToolStripButtonIPv4Disable)
+            .Items.Add(ToolStripButtonIPv6Enable)
+            .Items.Add(ToolStripButtonIPv6Disable)
             .Items.Add(New ToolStripSeparator)
             .Items.Add(ToolStripButtonSaveAs)
             .Items.Add(New ToolStripSeparator)
@@ -118,19 +177,78 @@ Public Class FormMain
         End If
 
         If sender Is ToolStripButtonAdd Then
-            AddNewItem()
+            AddNewItem(True)
             Exit Sub
         End If
 
         If sender Is ToolStripButtonSaveAs Then
-            Test()
+
             Exit Sub
         End If
 
         If sender Is ToolStripButtonRemove Then
             RemoveSelectedItems()
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonEnable Then
+            SetEnableOfSelectedItems(True)
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonDisable Then
+            SetEnableOfSelectedItems(False)
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonIPv4Enable Then
+            SetIPvXEnableOfSelectedItems(4, True)
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonIPv4Disable Then
+            SetIPvXEnableOfSelectedItems(4, False)
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonIPv6Enable Then
+            SetIPvXEnableOfSelectedItems(6, True)
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonIPv6Disable Then
+            SetIPvXEnableOfSelectedItems(6, False)
+            Exit Sub
         End If
     End Sub
+
+    Private Sub SetIPvXEnableOfSelectedItems(ByVal IPvX As Integer, ByVal Enable As Boolean)
+        Dim ColumnIndex As Integer = If(IPvX = 4, 3, 4)
+
+        With TableLayoutPanelList
+            For i As Integer = 0 To .RowCount - 1
+                If Not CType(.GetControlFromPosition(0, i), CheckBox).Checked Then
+                    Continue For
+                End If
+
+                CType(.GetControlFromPosition(ColumnIndex, i), CheckBox).Checked = Enable
+            Next
+        End With
+    End Sub
+
+    Private Sub SetEnableOfSelectedItems(ByVal Enable As Boolean)
+        With TableLayoutPanelList
+            For i As Integer = 0 To .RowCount - 1
+                If Not CType(.GetControlFromPosition(0, i), CheckBox).Checked Then
+                    Continue For
+                End If
+
+                CType(.GetControlFromPosition(1, i), CheckBox).Checked = Enable
+            Next
+        End With
+
+    End Sub
+
 
     Private Sub SaveConfiguration()
         Dim DataTable As New DataTable
@@ -153,7 +271,7 @@ Public Class FormMain
         Configuration.Save()
     End Sub
 
-    Private Sub AddNewItem()
+    Private Sub AddNewItem(Optional ByVal Enable As Boolean = False)
         With TableLayoutPanelList
             .SuspendLayout()
             .RowStyles.Add(New RowStyle(SizeType.Absolute, ItemHeight))
@@ -169,6 +287,7 @@ Public Class FormMain
             With CheckBoxEnable
                 .Text = ""
                 .Padding = CheckBoxPadding
+                .Checked = Enable
                 AddHandler .CheckedChanged, AddressOf CheckBoxEnable_CheckedChanged
             End With
 
@@ -176,18 +295,21 @@ Public Class FormMain
             With TextBoxDomainName
                 .WaterMarkText = "Please Input Domain Name."
                 .Dock = DockStyle.Fill
+                .Enabled = Enable
             End With
 
             Dim CheckBoxGetIPv4Address As New CheckBox
             With CheckBoxGetIPv4Address
                 .Text = ""
                 .Padding = CheckBoxPadding
+                .Enabled = Enable
             End With
 
             Dim CheckBoxGetIPv6Address As New CheckBox
             With CheckBoxGetIPv6Address
                 .Text = ""
                 .Padding = CheckBoxPadding
+                .Enabled = Enable
             End With
 
             Dim Index As Integer = .RowCount
@@ -230,6 +352,19 @@ Public Class FormMain
         End If
 
         AddHandler CheckBoxHeadSelectAll.CheckedChanged, AddressOf CheckBoxHeadSelectAll_CheckedChanged
+
+        ToolStripButtonUpdate()
+    End Sub
+
+    Private Sub ToolStripButtonUpdate()
+        Dim Enable As Boolean = ExistSelectedItems()
+        ToolStripButtonRemove.Enabled = Enable
+        ToolStripButtonEnable.Enabled = Enable
+        ToolStripButtonDisable.Enabled = Enable
+        ToolStripButtonIPv4Enable.Enabled = Enable
+        ToolStripButtonIPv4Disable.Enabled = Enable
+        ToolStripButtonIPv6Enable.Enabled = Enable
+        ToolStripButtonIPv6Disable.Enabled = Enable
     End Sub
 
     Private Sub CheckBoxEnable_CheckedChanged(sender As Object, e As EventArgs)
@@ -238,6 +373,8 @@ Public Class FormMain
                 TableLayoutPanelList.GetControlFromPosition(2, i).Enabled = CType(sender, CheckBox).Checked
                 TableLayoutPanelList.GetControlFromPosition(3, i).Enabled = CType(sender, CheckBox).Checked
                 TableLayoutPanelList.GetControlFromPosition(4, i).Enabled = CType(sender, CheckBox).Checked
+
+                TableLayoutPanelList.Refresh()
             End If
         Next
     End Sub
@@ -340,8 +477,6 @@ Public Class FormMain
     End Sub
 
     Private Sub CheckBoxHeadSelectAll_CheckedChanged(sender As Object, e As EventArgs)
-
-
         For i As Integer = 0 To TableLayoutPanelList.RowCount - 1
             With CType(TableLayoutPanelList.GetControlFromPosition(0, i), CheckBox)
                 RemoveHandler .CheckedChanged, AddressOf CheckBoxSelected_CheckedChanged
@@ -349,6 +484,7 @@ Public Class FormMain
                 AddHandler .CheckedChanged, AddressOf CheckBoxSelected_CheckedChanged
             End With
         Next
+        ToolStripButtonUpdate()
     End Sub
 
     Private Sub TableLayoutPanelHead_Paint(sender As Object, e As PaintEventArgs)
@@ -428,8 +564,6 @@ Public Class FormMain
                 CType(.GetControlFromPosition(4, .RowCount - 1), CheckBox).Checked = Row(LabelHeadGetIPv6Address.Text)
             End With
         Next
-
-        ' TableLayoutPanelList_Paint(Nothing, Nothing)
     End Sub
 
     Private Sub TableLayoutPanelList_ClientSizeChanged()
@@ -440,10 +574,6 @@ Public Class FormMain
                 .Padding = New Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0)
             End If
         End With
-    End Sub
-
-    Private Sub Test()
-        ' MsgBox(TableLayoutPanelList.VerticalScroll.Visible)
     End Sub
 
     Private Sub RemoveSelectedItems()
@@ -487,6 +617,9 @@ Public Class FormMain
             .AutoScroll = True
             .AutoScrollPosition = New Point(-Position.X, -Position.Y)
         End With
+
+        ToolStripButtonUpdate()
+        CheckBoxSelected_CheckedChanged(Nothing, Nothing)
     End Sub
 
     Private Function NextNonEmptyIndexOfTableLayoutPanelList(ByVal StartIndex As Integer) As Integer
@@ -497,6 +630,18 @@ Public Class FormMain
         Next
 
         Return -1
+    End Function
+
+    Private Function ExistSelectedItems() As Boolean
+        With TableLayoutPanelList
+            For i As Integer = 0 To .RowCount - 1
+                If CType(.GetControlFromPosition(0, i), CheckBox).Checked Then
+                    Return True
+                End If
+            Next
+        End With
+
+        Return False
     End Function
 
 End Class
