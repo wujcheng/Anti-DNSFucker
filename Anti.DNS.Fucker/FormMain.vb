@@ -126,6 +126,10 @@ Public Class FormMain
             Test()
             Exit Sub
         End If
+
+        If sender Is ToolStripButtonRemove Then
+            RemoveSelectedItems()
+        End If
     End Sub
 
     Private Sub SaveConfiguration()
@@ -201,6 +205,7 @@ Public Class FormMain
             End If
 
             .ResumeLayout()
+            .ScrollControlIntoView(CheckBoxSelected)
         End With
     End Sub
 
@@ -402,8 +407,10 @@ Public Class FormMain
                 .ColumnStyles.Add(New ColumnStyle(ColumnStyle.SizeType, ColumnStyle.Width))
             Next
 
+            .ColumnCount = 5
+
             AddHandler .ClientSizeChanged, AddressOf TableLayoutPanelList_ClientSizeChanged
-            AddHandler .Paint, AddressOf TableLayoutPanelList_Paint
+            'AddHandler .Paint, AddressOf TableLayoutPanelList_Paint
             .Parent = Me
         End With
 
@@ -438,4 +445,58 @@ Public Class FormMain
     Private Sub Test()
         ' MsgBox(TableLayoutPanelList.VerticalScroll.Visible)
     End Sub
+
+    Private Sub RemoveSelectedItems()
+        Dim RowCount As Integer = 0
+
+        With TableLayoutPanelList
+            For i As Integer = 0 To .RowCount - 1
+                If Not CType(.GetControlFromPosition(0, i), CheckBox).Checked Then
+                    Continue For
+                End If
+
+                For j As Integer = 0 To .ColumnCount - 1
+                    .Controls.Remove(.GetControlFromPosition(j, i))
+                Next
+
+                RowCount += 1
+            Next
+
+            For i As Integer = 0 To .RowCount - 1
+                If Not .GetControlFromPosition(0, i) Is Nothing Then
+                    Continue For
+                End If
+
+                Dim NextNonEmptyIndex As Integer = NextNonEmptyIndexOfTableLayoutPanelList(i)
+                If NextNonEmptyIndex < 0 Then
+                    Exit For
+                End If
+
+                For j As Integer = 0 To .ColumnCount - 1
+                    .SetRow(.GetControlFromPosition(j, NextNonEmptyIndex), i)
+                Next
+            Next
+
+            For i As Integer = 0 To RowCount - 1
+                .RowStyles.RemoveAt(RowCount - 1 - i)
+                .RowCount -= 1
+            Next
+
+            Dim Position As Point = .AutoScrollPosition
+            .AutoScroll = False
+            .AutoScroll = True
+            .AutoScrollPosition = New Point(-Position.X, -Position.Y)
+        End With
+    End Sub
+
+    Private Function NextNonEmptyIndexOfTableLayoutPanelList(ByVal StartIndex As Integer) As Integer
+        For i As Integer = StartIndex + 1 To TableLayoutPanelList.RowCount - 1
+            If Not TableLayoutPanelList.GetControlFromPosition(0, i) Is Nothing Then
+                Return i
+            End If
+        Next
+
+        Return -1
+    End Function
+
 End Class
