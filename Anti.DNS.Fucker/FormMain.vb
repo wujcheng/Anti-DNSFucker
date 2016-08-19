@@ -30,7 +30,6 @@ Public Class FormMain
 
     Private Configuration As Configuration
     Private ConfigurationPath As String = Application.StartupPath & "\Configuration.xml"
-    Private CheckBoxSelectedCheckedChangedEventEnable As Boolean = True
 
     Public Sub New()
         InitializeComponent()
@@ -166,6 +165,7 @@ Public Class FormMain
             With CheckBoxEnable
                 .Text = ""
                 .Padding = CheckBoxPadding
+                AddHandler .CheckedChanged, AddressOf CheckBoxEnable_CheckedChanged
             End With
 
             Dim TextBoxDomainName As New TextBoxWithWaterMark
@@ -204,22 +204,37 @@ Public Class FormMain
         End With
     End Sub
 
-    Private Sub CheckBoxSelected_CheckedChanged()
-        If Not CheckBoxSelectedCheckedChangedEventEnable Then
-            Exit Sub
-        End If
+    Private Sub CheckBoxSelected_CheckedChanged(sender As Object, e As EventArgs)
+        RemoveHandler CheckBoxHeadSelectAll.CheckedChanged, AddressOf CheckBoxHeadSelectAll_CheckedChanged
 
         Dim CurrentCheckState As Boolean = CType(TableLayoutPanelList.GetControlFromPosition(0, 0), CheckBox).Checked
+        Dim IsConsistent As Boolean = True
 
         For i As Integer = 1 To TableLayoutPanelList.RowCount - 1
             If Not CurrentCheckState = CType(TableLayoutPanelList.GetControlFromPosition(0, i), CheckBox).Checked Then
-                CheckBoxHeadSelectAll.CheckState = CheckState.Indeterminate
-                Exit Sub
+                IsConsistent = False
+                Exit For
             End If
         Next
 
-        CheckBoxHeadSelectAll.CheckState = If(CurrentCheckState, CheckState.Checked, CheckState.Unchecked)
-        CheckBoxHeadSelectAll.Checked = CurrentCheckState
+        If IsConsistent Then
+            CheckBoxHeadSelectAll.CheckState = If(CurrentCheckState, CheckState.Checked, CheckState.Unchecked)
+            CheckBoxHeadSelectAll.Checked = CurrentCheckState
+        Else
+            CheckBoxHeadSelectAll.CheckState = CheckState.Indeterminate
+        End If
+
+        AddHandler CheckBoxHeadSelectAll.CheckedChanged, AddressOf CheckBoxHeadSelectAll_CheckedChanged
+    End Sub
+
+    Private Sub CheckBoxEnable_CheckedChanged(sender As Object, e As EventArgs)
+        For i As Integer = 0 To TableLayoutPanelList.RowCount - 1
+            If sender Is TableLayoutPanelList.GetControlFromPosition(1, i) Then
+                TableLayoutPanelList.GetControlFromPosition(2, i).Enabled = CType(sender, CheckBox).Checked
+                TableLayoutPanelList.GetControlFromPosition(3, i).Enabled = CType(sender, CheckBox).Checked
+                TableLayoutPanelList.GetControlFromPosition(4, i).Enabled = CType(sender, CheckBox).Checked
+            End If
+        Next
     End Sub
 
     Private Sub ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
@@ -319,14 +334,16 @@ Public Class FormMain
         End With
     End Sub
 
-    Private Sub CheckBoxHeadSelectAll_CheckedChanged()
-        CheckBoxSelectedCheckedChangedEventEnable = False
+    Private Sub CheckBoxHeadSelectAll_CheckedChanged(sender As Object, e As EventArgs)
+
+
         For i As Integer = 0 To TableLayoutPanelList.RowCount - 1
             With CType(TableLayoutPanelList.GetControlFromPosition(0, i), CheckBox)
+                RemoveHandler .CheckedChanged, AddressOf CheckBoxSelected_CheckedChanged
                 .Checked = CheckBoxHeadSelectAll.Checked
+                AddHandler .CheckedChanged, AddressOf CheckBoxSelected_CheckedChanged
             End With
         Next
-        CheckBoxSelectedCheckedChangedEventEnable = True
     End Sub
 
     Private Sub TableLayoutPanelHead_Paint(sender As Object, e As PaintEventArgs)
