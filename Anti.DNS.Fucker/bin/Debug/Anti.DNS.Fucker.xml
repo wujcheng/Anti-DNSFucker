@@ -6,6 +6,32 @@ Anti.DNS.Fucker
 </name>
 </assembly>
 <members>
+<member name="T:Anti.DNS.Fucker.TransparentPanel">
+ <summary>
+ This class is a panel which is tansparent.
+ This class is used to cover the other control, which should be click by mouse.
+ </summary>
+</member>
+<member name="M:Anti.DNS.Fucker.TransparentPanel.#ctor">
+ <summary>
+ This is the constructor.
+ </summary>
+</member>
+<member name="P:Anti.DNS.Fucker.TransparentPanel.CreateParams">
+ <summary>
+ CreateParams is a property of Control object.
+ CreateParams is used to gets the required creation parameters when the control handle is created.
+ In this class, we override the property CreateParams,
+ and set the ExStyle = ExStyle Or 0x20 to make the background is trasparent.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Anti.DNS.Fucker.TransparentPanel.OnPaintBackground(System.Windows.Forms.PaintEventArgs)">
+ <summary>
+ We override the sub OnPaintBackground to prevent the background of this panel from being painted.
+ </summary>
+ <param name="e"></param>
+</member>
 <member name="T:Anti.DNS.Fucker.My.Resources.Resources">
 <summary>
   A strongly-typed resource class, for looking up localized strings, etc.

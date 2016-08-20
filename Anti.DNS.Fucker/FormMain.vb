@@ -60,6 +60,9 @@ Public Class FormMain
         InitializeTableLayoutPanelList()
 
         ToolStripButtonUpdate()
+
+        Dim IP As New IP
+        IP.Resolve("www.google.com")
     End Sub
 
     Private Sub InitializeToolStrip()

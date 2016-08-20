@@ -32,122 +32,14 @@
   </DomainNameList>
   <DomainNameList>
     <Enable>True</Enable>
-    <Domain_x0020_Name>1</Domain_x0020_Name>
+    <Domain_x0020_Name>geoip.neu.edu.cn</Domain_x0020_Name>
     <Get_x0020_IPv4>True</Get_x0020_IPv4>
     <Get_x0020_IPv6>True</Get_x0020_IPv6>
   </DomainNameList>
   <DomainNameList>
     <Enable>True</Enable>
-    <Domain_x0020_Name>2</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>3</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>4</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>5</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>67</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>7</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>8</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>9</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>0</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>11</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>12</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>13</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>14</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>15</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>16</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>17</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>18</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>19</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>20</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
+    <Domain_x0020_Name>www.hust.edu.cn</Domain_x0020_Name>
+    <Get_x0020_IPv4>True</Get_x0020_IPv4>
     <Get_x0020_IPv6>True</Get_x0020_IPv6>
   </DomainNameList>
 </NewDataSet>
