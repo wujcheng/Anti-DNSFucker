@@ -61,8 +61,8 @@ Public Class FormMain
 
         ToolStripButtonUpdate()
 
-        Dim IP As New IP
-        IP.Resolve("www.google.com")
+        Dim Hosts As New Hosts
+        MsgBox(Hosts.FindIPAddress("www.youtube.com", 4))
     End Sub
 
     Private Sub InitializeToolStrip()
