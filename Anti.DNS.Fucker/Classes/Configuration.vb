@@ -1,6 +1,6 @@
 ﻿Public Class Configuration
-    Dim DataSet As DataSet
-    Dim ConfigFileFullName As String
+    Private DataSet As DataSet
+    Public ConfigFileFullName As String
 
     Public Sub New()
         DataSet = New DataSet

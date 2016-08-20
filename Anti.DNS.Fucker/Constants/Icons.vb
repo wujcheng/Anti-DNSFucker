@@ -9,4 +9,6 @@
     Public IPv6Enable As Image = Image.FromFile(Application.StartupPath & "\Icons\IPv6Enable.ico")
     Public IPv4Disable As Image = Image.FromFile(Application.StartupPath & "\Icons\IPv4Disable.ico")
     Public IPv6Disable As Image = Image.FromFile(Application.StartupPath & "\Icons\IPv6Disable.ico")
+    Public Open As Image = Image.FromFile(Application.StartupPath & "\Icons\Open.ico")
+    Public Run As Image = Image.FromFile(Application.StartupPath & "\Icons\Run.ico")
 End Module

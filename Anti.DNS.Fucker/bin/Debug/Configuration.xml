@@ -150,10 +150,4 @@
     <Get_x0020_IPv4>False</Get_x0020_IPv4>
     <Get_x0020_IPv6>True</Get_x0020_IPv6>
   </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name />
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
 </NewDataSet>

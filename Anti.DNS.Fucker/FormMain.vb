@@ -24,6 +24,8 @@ Public Class FormMain
     Private ToolStripButtonIPv6Enable As ToolStripButton
     Private ToolStripButtonIPv6Disable As ToolStripButton
     Private ToolStripButtonIPv4Disable As ToolStripButton
+    Private ToolStripButtonOpen As ToolStripButton
+    Private ToolStripButtonRun As ToolStripButton
 
     Private StatusStrip As StatusStrip
 
@@ -41,8 +43,8 @@ Public Class FormMain
         InitializeComponent()
 
         With Me
-            .Width = 400
-            .Height = 300
+            .Width = 420
+            .Height = 400
             .Text = "Anti-DNSFucker"
             .ControlBox = False
             .FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -94,7 +96,7 @@ Public Class FormMain
         ToolStripButtonSaveAs = New ToolStripButton
         With ToolStripButtonSaveAs
             .Image = Icons.SaveAs
-            .ToolTipText = "Save As"
+            .ToolTipText = "Save Configuration to File"
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
@@ -140,6 +142,21 @@ Public Class FormMain
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
+        ToolStripButtonOpen = New ToolStripButton
+        With ToolStripButtonOpen
+            .Image = Icons.Open
+            .ToolTipText = "Open Configuration"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
+        ToolStripButtonRun = New ToolStripButton
+        With ToolStripButtonRun
+            .Image = Icons.Run
+            .ToolTipText = "Run"
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
+
         ToolStrip = New ToolStrip
         With ToolStrip
             .GripStyle = ToolStripGripStyle.Hidden
@@ -160,7 +177,10 @@ Public Class FormMain
             .Items.Add(ToolStripButtonIPv6Enable)
             .Items.Add(ToolStripButtonIPv6Disable)
             .Items.Add(New ToolStripSeparator)
+            .Items.Add(ToolStripButtonOpen)
             .Items.Add(ToolStripButtonSaveAs)
+            .Items.Add(New ToolStripSeparator)
+            .Items.Add(ToolStripButtonRun)
             .Items.Add(New ToolStripSeparator)
             .Items.Add(ToolStripButtonQuit)
 
@@ -178,11 +198,6 @@ Public Class FormMain
 
         If sender Is ToolStripButtonAdd Then
             AddNewItem(True)
-            Exit Sub
-        End If
-
-        If sender Is ToolStripButtonSaveAs Then
-
             Exit Sub
         End If
 
@@ -220,6 +235,74 @@ Public Class FormMain
             SetIPvXEnableOfSelectedItems(6, False)
             Exit Sub
         End If
+
+        If sender Is ToolStripButtonSaveAs Then
+            SaveConfigurationToFile()
+            Exit Sub
+        End If
+
+        If sender Is ToolStripButtonOpen Then
+            LoadConfigurationFromFile
+            Exit Sub
+        End If
+    End Sub
+
+    Private Sub SaveConfigurationToFile()
+        Dim SaveFileDialog As New SaveFileDialog
+        With SaveFileDialog
+            .FileName = ""
+            .Filter = "Configuration File|*.cfg"
+        End With
+
+        If Not SaveFileDialog.ShowDialog = DialogResult.OK Then
+            Exit Sub
+        End If
+
+        SaveConfiguration(SaveFileDialog.FileName)
+    End Sub
+
+    Private Sub LoadConfigurationFromFile()
+        Dim OpenFileDialog As New OpenFileDialog
+        With OpenFileDialog
+            .FileName = ""
+            .Filter = "Configuration File|*.cfg"
+            .Multiselect = False
+        End With
+
+        If Not OpenFileDialog.ShowDialog = DialogResult.OK Then
+            Exit Sub
+        End If
+
+        Configuration = New Configuration
+        If Not Configuration.Load(OpenFileDialog.FileName) Then
+            Exit Sub
+        End If
+
+        Configuration.ConfigFileFullName = ConfigurationPath
+        FillTableLayoutPanelListFromConfiguration()
+    End Sub
+
+    Private Sub FillTableLayoutPanelListFromConfiguration()
+        Dim DataTable As New DataTable
+        If Not Configuration.GetConfig(TableNames.DomainNameList, DataTable) Then
+            Exit Sub
+        End If
+
+        With TableLayoutPanelList
+            .Controls.Clear()
+            .RowStyles.Clear()
+            .RowCount = 0
+
+            For Each Row As DataRow In DataTable.Rows
+                AddNewItem()
+                With TableLayoutPanelList
+                    CType(.GetControlFromPosition(1, .RowCount - 1), CheckBox).Checked = Row(LabelHeadEnable.Text)
+                    CType(.GetControlFromPosition(2, .RowCount - 1), TextBox).Text = Row(LabelHeadDomainName.Text)
+                    CType(.GetControlFromPosition(3, .RowCount - 1), CheckBox).Checked = Row(LabelHeadGetIPv4Address.Text)
+                    CType(.GetControlFromPosition(4, .RowCount - 1), CheckBox).Checked = Row(LabelHeadGetIPv6Address.Text)
+                End With
+            Next
+        End With
     End Sub
 
     Private Sub SetIPvXEnableOfSelectedItems(ByVal IPvX As Integer, ByVal Enable As Boolean)
@@ -250,7 +333,7 @@ Public Class FormMain
     End Sub
 
 
-    Private Sub SaveConfiguration()
+    Private Sub SaveConfiguration(Optional Path As String = "")
         Dim DataTable As New DataTable
         DataTable.TableName = TableNames.DomainNameList
         DataTable.Columns.Add(LabelHeadEnable.Text)
@@ -268,7 +351,12 @@ Public Class FormMain
         Next
 
         Configuration.SetConfig(DataTable)
-        Configuration.Save()
+
+        If Path.Trim = "" Then
+            Configuration.Save()
+        Else
+            Configuration.SaveAs(Path)
+        End If
     End Sub
 
     Private Sub AddNewItem(Optional ByVal Enable As Boolean = False)
@@ -332,6 +420,11 @@ Public Class FormMain
     End Sub
 
     Private Sub CheckBoxSelected_CheckedChanged(sender As Object, e As EventArgs)
+        If TableLayoutPanelList.RowCount = 0 Then
+            CheckBoxHeadSelectAll.Checked = False
+            Exit Sub
+        End If
+
         RemoveHandler CheckBoxHeadSelectAll.CheckedChanged, AddressOf CheckBoxHeadSelectAll_CheckedChanged
 
         Dim CurrentCheckState As Boolean = CType(TableLayoutPanelList.GetControlFromPosition(0, 0), CheckBox).Checked
@@ -526,8 +619,13 @@ Public Class FormMain
     Private Sub InitializeTableLayoutPanelList()
         TableLayoutPanelList = New TableLayoutPanelWithDoubleBuffer
         With TableLayoutPanelList
+            '.BackColor = Color.Red
             .Location = New Point(0, TableLayoutPanelHead.Height + ToolStrip.Height)
             .Width = Me.ClientSize.Width
+            '.Controls.Clear()
+            '.RowStyles.Clear()
+            '.RowCount = 0
+
             '.Height = Me.ClientSize.Height - TableLayoutPanelHead.Height - ToolStrip.Height - StatusStrip.Height
             .Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Top Or AnchorStyles.Right
             '.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
@@ -550,20 +648,7 @@ Public Class FormMain
             .Parent = Me
         End With
 
-        Dim DataTable As New DataTable
-        If Not Configuration.GetConfig(TableNames.DomainNameList, DataTable) Then
-            Exit Sub
-        End If
-
-        For Each Row As DataRow In DataTable.Rows
-            AddNewItem()
-            With TableLayoutPanelList
-                CType(.GetControlFromPosition(1, .RowCount - 1), CheckBox).Checked = Row(LabelHeadEnable.Text)
-                CType(.GetControlFromPosition(2, .RowCount - 1), TextBox).Text = Row(LabelHeadDomainName.Text)
-                CType(.GetControlFromPosition(3, .RowCount - 1), CheckBox).Checked = Row(LabelHeadGetIPv4Address.Text)
-                CType(.GetControlFromPosition(4, .RowCount - 1), CheckBox).Checked = Row(LabelHeadGetIPv6Address.Text)
-            End With
-        Next
+        FillTableLayoutPanelListFromConfiguration()
     End Sub
 
     Private Sub TableLayoutPanelList_ClientSizeChanged()
