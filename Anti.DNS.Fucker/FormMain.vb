@@ -39,6 +39,8 @@ Public Class FormMain
     Private Configuration As Configuration
     Private ConfigurationPath As String = Application.StartupPath & "\Configuration.xml"
 
+    Private ThreadBackground As Threading.Thread
+
     Public Sub New()
         InitializeComponent()
 
@@ -61,8 +63,29 @@ Public Class FormMain
 
         ToolStripButtonUpdate()
 
-        Dim Hosts As New Hosts
-        MsgBox(Hosts.FindIPAddress("www.youtube.com", 4))
+        CheckForIllegalCrossThreadCalls = False
+
+        ThreadBackground = New Threading.Thread(AddressOf BackgroundProcess)
+        ThreadBackground.Start()
+    End Sub
+
+    Private Sub BackgroundProcess()
+        With TableLayoutPanelList
+            For i As Integer = 0 To .RowCount - 1
+                If Not CType(.GetControlFromPosition(0, i), CheckBox).Checked Then
+                    Continue For
+                End If
+
+                If Not CType(.GetControlFromPosition(0, i), CheckBox).Tag Is Nothing Then
+                    Continue For
+                End If
+
+                Dim IP As New IP
+                IP.Resolve(CType(.GetControlFromPosition(2, i), TextBox).Text)
+                CType(.GetControlFromPosition(0, i), CheckBox).Tag = IP
+
+            Next
+        End With
     End Sub
 
     Private Sub InitializeToolStrip()
