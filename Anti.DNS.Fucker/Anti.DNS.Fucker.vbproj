@@ -81,6 +81,9 @@
     <Compile Include="Constants\Icons.vb" />
     <Compile Include="Constants\Regexes.vb" />
     <Compile Include="Constants\TableNames.vb" />
+    <Compile Include="Controls\DomainNameItem.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TableLayoutPanelWithDoubleBuffer.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -101,6 +104,12 @@
     </Compile>
     <Compile Include="FormMain.Designer.vb">
       <DependentUpon>FormMain.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTest.Designer.vb">
+      <DependentUpon>FormTest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormTest.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
