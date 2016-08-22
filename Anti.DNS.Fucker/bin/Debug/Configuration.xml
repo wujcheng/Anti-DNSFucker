@@ -4,13 +4,13 @@
     <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
       <xs:complexType>
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="DomainNameList">
+          <xs:element name="DomainNameItemList">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="Enable" type="xs:string" minOccurs="0" />
-                <xs:element name="Domain_x0020_Name" type="xs:string" minOccurs="0" />
-                <xs:element name="Get_x0020_IPv4" type="xs:string" minOccurs="0" />
-                <xs:element name="Get_x0020_IPv6" type="xs:string" minOccurs="0" />
+                <xs:element name="CheckBoxEnable" type="xs:string" minOccurs="0" />
+                <xs:element name="TextBoxDomainName" type="xs:string" minOccurs="0" />
+                <xs:element name="CheckBoxGetIPv4Address" type="xs:string" minOccurs="0" />
+                <xs:element name="CheckBoxGetIPv6Address" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -18,28 +18,34 @@
       </xs:complexType>
     </xs:element>
   </xs:schema>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>www.baidu.com</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>www.google.com</Domain_x0020_Name>
-    <Get_x0020_IPv4>False</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>geoip.neu.edu.cn</Domain_x0020_Name>
-    <Get_x0020_IPv4>True</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
-  <DomainNameList>
-    <Enable>True</Enable>
-    <Domain_x0020_Name>www.hust.edu.cn</Domain_x0020_Name>
-    <Get_x0020_IPv4>True</Get_x0020_IPv4>
-    <Get_x0020_IPv6>True</Get_x0020_IPv6>
-  </DomainNameList>
+  <DomainNameItemList>
+    <CheckBoxEnable>False</CheckBoxEnable>
+    <TextBoxDomainName>www.baidu.com</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>False</CheckBoxEnable>
+    <TextBoxDomainName>www.google.com</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>False</CheckBoxEnable>
+    <TextBoxDomainName>scholar.google.com</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>False</CheckBoxEnable>
+    <TextBoxDomainName>www.youtube.com</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>False</CheckBoxEnable>
+    <TextBoxDomainName>www.facebook.com</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
 </NewDataSet>

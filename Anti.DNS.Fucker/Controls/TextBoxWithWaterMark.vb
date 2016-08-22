@@ -23,4 +23,8 @@ Public Class TextBoxWithWaterMark
     Private Sub SetWaterMark(waterMarkText As String)
         SendMessage(Me.Handle, EM_SETCUEBANNER, 0, waterMarkText)
     End Sub
+
+    Public Sub New()
+        'Me.BorderStyle = BorderStyle.FixedSingle
+    End Sub
 End Class
