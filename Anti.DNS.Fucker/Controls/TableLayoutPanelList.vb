@@ -133,6 +133,7 @@
             .RowStyles.Add(New RowStyle(SizeType.AutoSize))
             .Controls.Add(DomainNameItem)
             .RowCount += 1
+            .ScrollControlIntoView(DomainNameItem)
         End With
 
         DomainNameItem_SelectCheckedChanged(Nothing, Nothing)
@@ -148,6 +149,7 @@
             .RowStyles.Add(New RowStyle(SizeType.AutoSize))
             .Controls.Add(DomainNameItem)
             .RowCount += 1
+            .ScrollControlIntoView(DomainNameItem)
         End With
 
         DomainNameItem_SelectCheckedChanged(Nothing, Nothing)
