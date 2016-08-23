@@ -29,7 +29,7 @@
     Public Event ToolStripButtonIPv4Disable_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonOpen_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonSave_Click(sender As Object, e As EventArgs)
-
+    Public Event ToolStripButtonRun_Click(sender As Object, e As EventArgs)
 
     Public Shadows Property Text As String
         Get
@@ -190,6 +190,8 @@
             RaiseEvent ToolStripButtonOpen_Click(sender, e)
         ElseIf sender Is ToolStripButtonSave Then
             RaiseEvent ToolStripButtonSave_Click(sender, e)
+        ElseIf sender Is ToolStripButtonRun Then
+            RaiseEvent ToolStripButtonRun_Click(sender, e)
         End If
     End Sub
 

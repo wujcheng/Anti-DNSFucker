@@ -3,18 +3,48 @@
 
     Private CheckBoxSelect As CheckBox
     Private CheckBoxEnable As CheckBox
-    Private CheckBoxGetIPv6Address As CheckBox
-    Private CheckBoxGetIPv4Address As CheckBox
+    Private CheckBoxGetIPv6Address As CheckBoxAdvanced
+    Private CheckBoxGetIPv4Address As CheckBoxAdvanced
     Private TextBoxDomainName As TextBoxWithWaterMark
 
-    Private IPv4Address As String
-    Private IPv6Address As String
+    Public IPv4Address As String = ""
+    Public IPv6Address As String = ""
 
     Private Const ItemHeight As Integer = 27
     Private CheckBoxPadding As Padding = New Padding(0, 0, 0, 0)
     Private CheckBoxMargin As Padding = New Padding(3, 0, 0, 0)
     Private TextBoxMargin As Padding = New Padding(3, 3, 3, 3)
     Public Event SelectCheckedChanged(sender As Object, e As EventArgs)
+
+    Delegate Sub DelegateSetCheckBoxGetIPvXEnable()
+    Public IsResolved As Boolean = False
+
+    Public Sub Resolve()
+        Dim IP As New IP
+        IP.Resolve(DomainName)
+        IPv4Address = IP.IPv4Address
+        IPv6Address = IP.IPv6Address
+
+        Me.Invoke(New DelegateSetCheckBoxGetIPvXEnable(AddressOf SetCheckBoxGetIPvXEnable))
+        IsResolved = True
+    End Sub
+
+    Private Sub SetCheckBoxGetIPvXEnable()
+        CheckBoxGetIPv4Address.Broken = IPv4Address.Trim = ""
+        CheckBoxGetIPv6Address.Broken = IPv6Address.Trim = ""
+
+        CheckBoxGetIPv4Address.Enabled = CheckBoxEnable.Checked
+        CheckBoxGetIPv6Address.Enabled = CheckBoxEnable.Checked
+        ' CheckBox_CheckedChanged(CheckBoxSelect, Nothing)
+        'CheckBoxGetIPv4Address.Enabled = Not IPv4Address.Trim = ""
+        'If Not CheckBoxGetIPv4Address.Enabled Then
+        '    CheckBoxGetIPv4Address.Checked = False
+        'End If
+        'CheckBoxGetIPv6Address.Enabled = Not IPv6Address.Trim = ""
+        'If Not CheckBoxGetIPv6Address.Enabled Then
+        '    CheckBoxGetIPv6Address.Checked = False
+        'End If
+    End Sub
 
     Public Property Selected As Boolean
         Get
@@ -102,18 +132,20 @@
                 AddHandler .CheckedChanged, AddressOf CheckBox_CheckedChanged
             End With
 
-            CheckBoxGetIPv6Address = New CheckBox
+            CheckBoxGetIPv6Address = New CheckBoxAdvanced
             With CheckBoxGetIPv6Address
                 .Text = ""
+                .Checked = True
                 .Name = NameOf(CheckBoxGetIPv6Address)
                 .Padding = CheckBoxPadding
                 .Margin = CheckBoxMargin
                 AddHandler .CheckedChanged, AddressOf CheckBox_CheckedChanged
             End With
 
-            CheckBoxGetIPv4Address = New CheckBox
+            CheckBoxGetIPv4Address = New CheckBoxAdvanced
             With CheckBoxGetIPv4Address
                 .Text = ""
+                .Checked = True
                 .Name = NameOf(CheckBoxGetIPv4Address)
                 .Padding = CheckBoxPadding
                 .Margin = CheckBoxMargin
@@ -127,6 +159,7 @@
                 .Margin = TextBoxMargin
                 .BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
                 .WaterMarkText = "Please Input Domain Name."
+                AddHandler .TextChanged, AddressOf TextBoxDomainName_TextChanged
             End With
 
             .Controls.Add(CheckBoxSelect, 0, 0)
@@ -139,15 +172,19 @@
         End With
     End Sub
 
+    Private Sub TextBoxDomainName_TextChanged(sender As Object, e As EventArgs)
+        IsResolved = False
+    End Sub
+
     Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs)
         If sender Is CheckBoxEnable Then
             TextBoxDomainName.Enabled = CheckBoxEnable.Checked
+
+            CheckBoxGetIPv4Address.Broken = IPv4Address.Trim = ""
+            CheckBoxGetIPv6Address.Broken = IPv6Address.Trim = ""
             CheckBoxGetIPv4Address.Enabled = CheckBoxEnable.Checked
             CheckBoxGetIPv6Address.Enabled = CheckBoxEnable.Checked
-            Exit Sub
-        End If
-
-        If sender Is CheckBoxSelect Then
+        ElseIf sender Is CheckBoxSelect Then
             RaiseEvent SelectCheckedChanged(sender, e)
         End If
     End Sub

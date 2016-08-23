@@ -7,6 +7,16 @@
     Private ColumnStyleList As ArrayList
     Public ConfigurationPath As String
 
+    Public ReadOnly Property AllResolved As Boolean
+        Get
+            For Each DomainNameItem As DomainNameItem In Me.Controls
+                If Not DomainNameItem.IsResolved Then
+                    Return False
+                End If
+            Next
+            Return True
+        End Get
+    End Property
 
     Public Sub New(ByVal ColumnStyleList As ArrayList)
         With Me

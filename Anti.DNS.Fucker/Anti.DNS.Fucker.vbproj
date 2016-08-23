@@ -81,6 +81,9 @@
     <Compile Include="Constants\Icons.vb" />
     <Compile Include="Constants\Regexes.vb" />
     <Compile Include="Constants\TableNames.vb" />
+    <Compile Include="Controls\CheckBoxAdvanced.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\DomainNameItem.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -93,19 +96,10 @@
     <Compile Include="Controls\TableLayoutPanelList.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TableLayoutPanelWithDoubleBuffer.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\TextBoxWithWaterMark.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ToolStripCheckBox.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\ToolStripMain.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ToolStripTextBoxWithWaterMark.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TransparentPanel.vb">

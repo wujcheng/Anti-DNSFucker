@@ -8,8 +8,10 @@
     Private Configuration As Configuration
     Private ConfigurationPath As String = Application.StartupPath & "\Configuration.xml"
 
-    Public Sub New()
+    Private ThreadResolve As Threading.Thread
+    Private Timer As Timer
 
+    Public Sub New()
         InitializeComponent()
 
         With Me
@@ -29,7 +31,32 @@
         InitializeStatusStripMain()
         InitializeTableLayoutPanelHead()
         InitializeTableLayoutPanelList()
+
+        Timer = New Timer
+        With Timer
+            .Interval = 1000
+            AddHandler .Tick, AddressOf Timer_Tick
+            Timer.Start()
+        End With
     End Sub
+
+    Private Sub Timer_Tick(sender As Object, e As EventArgs)
+        ThreadResolve = New Threading.Thread(AddressOf ResolveThreadSub)
+        ThreadResolve.SetApartmentState(Threading.ApartmentState.STA)
+        ThreadResolve.Start()
+    End Sub
+
+    'Private Sub StartThreadResolve()
+    '    If ThreadResolve Is Nothing Then
+    '        ThreadResolve = New Threading.Thread(AddressOf ResolveThreadSub)
+    '    End If
+    '    ThreadResolve.SetApartmentState(Threading.ApartmentState.STA)
+
+    '    If ThreadResolve.IsAlive Then
+    '        Exit Sub
+    '    End If
+    '    ThreadResolve.Start()
+    'End Sub
 
     Private Sub InitializeColumnStyleList()
         ColumnStyleList = New ArrayList
@@ -60,6 +87,7 @@
             AddHandler .ToolStripButtonIPv6Disable_Click, AddressOf ToolStripButtonIPv6Disable_Click
             AddHandler .ToolStripButtonSave_Click, AddressOf ToolStripButtonSave_Click
             AddHandler .ToolStripButtonOpen_Click, AddressOf ToolStripButtonOpen_Click
+            AddHandler .ToolStripButtonRun_Click, AddressOf ToolStripButtonRun_Click
         End With
     End Sub
 
@@ -95,6 +123,16 @@
 
         TableLayoutPanelList.Fill(ConfigurationPath)
         TableLayoutPanelList.ConfigurationPath = ConfigurationPath
+    End Sub
+
+    Private Sub ResolveThreadSub()
+        RemoveHandler Timer.Tick, AddressOf Timer_Tick
+        For Each DomainNameItem As DomainNameItem In TableLayoutPanelList.Controls
+            If Not DomainNameItem.IsResolved Then
+                DomainNameItem.Resolve()
+            End If
+        Next
+        AddHandler Timer.Tick, AddressOf Timer_Tick
     End Sub
 
     Private Sub ToolStripButtonAdd_Click(sender As Object, e As EventArgs)
@@ -161,6 +199,30 @@
         End If
 
         TableLayoutPanelList.Fill(OpenFileDialog.FileName)
+    End Sub
+
+    Private Sub ToolStripButtonRun_Click(sender As Object, e As EventArgs)
+        While Not TableLayoutPanelList.AllResolved
+            Application.DoEvents()
+        End While
+
+        Dim Hosts As New Hosts
+        For Each DomainNameItem As DomainNameItem In TableLayoutPanelList.Controls
+            If Not DomainNameItem.Enabled Then
+                Continue For
+            End If
+
+            If DomainNameItem.GetIPv4Address Then
+                Hosts.Add(DomainNameItem.DomainName, DomainNameItem.IPv4Address)
+            End If
+
+            If DomainNameItem.GetIPv6Address Then
+                Hosts.Add(DomainNameItem.DomainName, DomainNameItem.IPv6Address)
+            End If
+        Next
+        Hosts.Save()
+        MsgBox("Done")
+
     End Sub
 
     Private Sub TableLayoutPanelHead_SelectAllCheckedChanged(sender As Object, e As EventArgs)
