@@ -64,6 +64,26 @@ Public Class Hosts
         Return True
     End Function
 
+    Public Sub Remove(ByVal DomainName As String)
+        For Each Item As String In Items
+            Item = Item.Trim
+            If Item.Trim = "" Then
+                Continue For
+            End If
+
+            If Item.IndexOf("#") = 0 Then
+                Continue For
+            End If
+
+            Dim _DomainName As String = Item.Remove(0, Item.IndexOf(" ") + 1).Trim
+
+            If DomainName.Trim.ToLower = _DomainName.Trim.ToLower Then
+                Items.Remove(Item)
+                Exit Sub
+            End If
+        Next
+    End Sub
+
     Public Sub Save()
         Dim Writer As New IO.StreamWriter(HostsFilePath, False, System.Text.Encoding.Default)
         For Each Line As String In Items

@@ -19,7 +19,7 @@
     Delegate Sub DelegateSetCheckBoxGetIPvXEnable()
     Public IsResolved As Boolean = False
 
-    Public Sub Resolve()
+    Public Function Resolve() As Boolean
         Dim IP As New IP
         IP.Resolve(DomainName)
         IPv4Address = IP.IPv4Address
@@ -27,7 +27,9 @@
 
         Me.Invoke(New DelegateSetCheckBoxGetIPvXEnable(AddressOf SetCheckBoxGetIPvXEnable))
         IsResolved = True
-    End Sub
+
+        Return Not (IPv4Address.Trim = "" And IPv6Address.Trim = "")
+    End Function
 
     Private Sub SetCheckBoxGetIPvXEnable()
         CheckBoxGetIPv4Address.Broken = IPv4Address.Trim = ""
@@ -35,15 +37,6 @@
 
         CheckBoxGetIPv4Address.Enabled = CheckBoxEnable.Checked
         CheckBoxGetIPv6Address.Enabled = CheckBoxEnable.Checked
-        ' CheckBox_CheckedChanged(CheckBoxSelect, Nothing)
-        'CheckBoxGetIPv4Address.Enabled = Not IPv4Address.Trim = ""
-        'If Not CheckBoxGetIPv4Address.Enabled Then
-        '    CheckBoxGetIPv4Address.Checked = False
-        'End If
-        'CheckBoxGetIPv6Address.Enabled = Not IPv6Address.Trim = ""
-        'If Not CheckBoxGetIPv6Address.Enabled Then
-        '    CheckBoxGetIPv6Address.Checked = False
-        'End If
     End Sub
 
     Public Property Selected As Boolean

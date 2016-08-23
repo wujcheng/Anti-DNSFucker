@@ -6,13 +6,12 @@ Public Class IP
 
     Private WebBrowser As WebBrowser
     Private IsResolving As Boolean
-
+    Private Timer As Timer
 
     Public Sub New()
         With Me
             .IPv4Address = ""
             .IPv6Address = ""
-
         End With
     End Sub
 
@@ -20,6 +19,12 @@ Public Class IP
         IPv4Address = ""
         IPv6Address = ""
 
+        Timer = New Timer
+        With Timer
+            .Interval = 2000
+            AddHandler .Tick, AddressOf Timer_Tick
+            .Start()
+        End With
         WebBrowser = New WebBrowser
         AddHandler WebBrowser.DocumentCompleted, AddressOf WebBrowser_DocumentCompleted
 
@@ -30,6 +35,12 @@ Public Class IP
         End While
 
         WebBrowser.Dispose()
+    End Sub
+
+    Public Sub Timer_Tick(sender As Object, e As EventArgs)
+        IsResolving = False
+        Timer.Stop()
+        Timer.Dispose()
     End Sub
 
     Private Sub WebBrowser_DocumentCompleted()

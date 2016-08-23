@@ -27,8 +27,8 @@
         End If
 
         InitializeColumnStyleList()
-        InitializeToolStripMain()
         InitializeStatusStripMain()
+        InitializeToolStripMain()
         InitializeTableLayoutPanelHead()
         InitializeTableLayoutPanelList()
 
@@ -89,6 +89,8 @@
             AddHandler .ToolStripButtonOpen_Click, AddressOf ToolStripButtonOpen_Click
             AddHandler .ToolStripButtonRun_Click, AddressOf ToolStripButtonRun_Click
         End With
+
+        ShowMessage("Toolbar has been initialized.")
     End Sub
 
     Private Sub InitializeStatusStripMain()
@@ -96,6 +98,7 @@
         With StatusStripMain
             .Parent = Me
         End With
+        ShowMessage("Statusbar has been initialized.")
     End Sub
 
     Private Sub InitializeTableLayoutPanelHead()
@@ -108,6 +111,7 @@
 
             AddHandler .SelectAllCheckedChanged, AddressOf TableLayoutPanelHead_SelectAllCheckedChanged
         End With
+        ShowMessage("Titlebar has been initialized.")
     End Sub
 
     Private Sub InitializeTableLayoutPanelList()
@@ -123,15 +127,21 @@
 
         TableLayoutPanelList.Fill(ConfigurationPath)
         TableLayoutPanelList.ConfigurationPath = ConfigurationPath
+        ShowMessage("Configuration has been loaded.")
     End Sub
 
     Private Sub ResolveThreadSub()
         RemoveHandler Timer.Tick, AddressOf Timer_Tick
         For Each DomainNameItem As DomainNameItem In TableLayoutPanelList.Controls
             If Not DomainNameItem.IsResolved Then
-                DomainNameItem.Resolve()
+                If DomainNameItem.Resolve() Then
+                    ShowMessage("The domain name """ & DomainNameItem.DomainName & """ has been resolved.")
+                Else
+                    ShowMessage("The domain name """ & DomainNameItem.DomainName & """ is failed to be resolved.")
+                End If
             End If
         Next
+        ShowMessage("All domain names are resolved, please click ""Run"" button.")
         AddHandler Timer.Tick, AddressOf Timer_Tick
     End Sub
 
@@ -209,6 +219,7 @@
         Dim Hosts As New Hosts
         For Each DomainNameItem As DomainNameItem In TableLayoutPanelList.Controls
             If Not DomainNameItem.Enabled Then
+                Hosts.Remove(DomainNameItem.DomainName)
                 Continue For
             End If
 
@@ -221,8 +232,7 @@
             End If
         Next
         Hosts.Save()
-        MsgBox("Done")
-
+        MsgBox("The Hosts file has been overwritted.", MsgBoxStyle.OkOnly, "Done")
     End Sub
 
     Private Sub TableLayoutPanelHead_SelectAllCheckedChanged(sender As Object, e As EventArgs)
@@ -236,5 +246,9 @@
         TableLayoutPanelHead.CheckBoxSelectAllEventEnabled = True
 
         ToolStripMain.SetEnable(Not TableLayoutPanelList.SelectedState = CheckState.Unchecked)
+    End Sub
+
+    Private Sub ShowMessage(ByVal Message As String)
+        StatusStripMain.ShowMessage(Message)
     End Sub
 End Class
