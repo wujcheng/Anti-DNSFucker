@@ -122,6 +122,18 @@
         Return True
     End Function
 
+    Public Overrides Sub Refresh()
+        Dim TempPath As String = ".\TempConfiguration.xml"
+        Me.SaveConfiguration(TempPath)
+        Dim Position As Point = Me.AutoScrollPosition
+        Me.Fill(TempPath)
+        Me.AutoScrollPosition = New Point(-Position.X, -Position.Y)
+
+        My.Computer.FileSystem.DeleteFile(TempPath)
+
+
+    End Sub
+
     Public Sub AddItem()
         Dim DomainNameItem As New DomainNameItem(ColumnStyleList)
         With DomainNameItem

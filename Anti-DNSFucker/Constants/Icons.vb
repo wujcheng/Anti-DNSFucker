@@ -11,6 +11,7 @@
     Public IPv6Disable As Image = Image.FromFile(".\Icons\IPv6Disable.ico")
     Public Open As Image = Image.FromFile(".\Icons\Open.ico")
     Public Run As Image = Image.FromFile(".\Icons\Run.ico")
+    Public Refresh As Image = Image.FromFile(".\Icons\Refresh.ico")
     Public About As Image = Image.FromFile(".\Icons\About.ico")
     Public Logo As Icon = New Icon(".\Icons\Logo.ico")
 End Module

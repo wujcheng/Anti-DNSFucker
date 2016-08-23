@@ -88,6 +88,7 @@
             AddHandler .ToolStripButtonSave_Click, AddressOf ToolStripButtonSave_Click
             AddHandler .ToolStripButtonOpen_Click, AddressOf ToolStripButtonOpen_Click
             AddHandler .ToolStripButtonRun_Click, AddressOf ToolStripButtonRun_Click
+            AddHandler .ToolStripButtonRefresh_Click, AddressOf ToolStripButtonRefresh_Click
             AddHandler .ToolStripButtonAbout_Click, AddressOf ToolStripButtonAbout_Click
             AddHandler .ToolStrip_MouseDown, AddressOf ToolStrip_MouseDown
             AddHandler .ToolStrip_MouseMove, AddressOf ToolStrip_MouseMove
@@ -208,16 +209,6 @@
         TableLayoutPanelList.RemoveSelectedItems()
     End Sub
 
-    Private Sub ToolStripButtonQuit_Click(sender As Object, e As EventArgs)
-        If Not ThreadResolve Is Nothing Then
-            If ThreadResolve.ThreadState = Threading.ThreadState.Running Then
-                ThreadResolve.Abort()
-            End If
-        End If
-        TableLayoutPanelList.SaveConfiguration()
-        End
-    End Sub
-
     Private Sub ToolStripButtonEnable_Click(sender As Object, e As EventArgs)
         TableLayoutPanelList.EnableSelectedItems(True)
     End Sub
@@ -293,6 +284,20 @@
         Next
         Hosts.Save()
         MsgBox("The Hosts file has been overwritted.", MsgBoxStyle.OkOnly, "Done")
+    End Sub
+
+    Public Sub ToolStripButtonRefresh_Click(sender As Object, e As EventArgs)
+        TableLayoutPanelList.Refresh()
+    End Sub
+
+    Private Sub ToolStripButtonQuit_Click(sender As Object, e As EventArgs)
+        If Not ThreadResolve Is Nothing Then
+            If ThreadResolve.ThreadState = Threading.ThreadState.Running Then
+                ThreadResolve.Abort()
+            End If
+        End If
+        TableLayoutPanelList.SaveConfiguration()
+        End
     End Sub
 
     Public Sub ToolStripButtonAbout_Click(sender As Object, e As EventArgs)

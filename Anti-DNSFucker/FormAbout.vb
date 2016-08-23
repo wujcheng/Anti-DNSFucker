@@ -51,4 +51,9 @@
     Private Sub Me_Click(sender As Object, e As EventArgs)
         Me.Dispose()
     End Sub
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        Me.Dispose()
+        Return MyBase.ProcessCmdKey(msg, keyData)
+    End Function
 End Class
