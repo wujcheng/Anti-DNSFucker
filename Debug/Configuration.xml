@@ -121,27 +121,21 @@
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>False</CheckBoxEnable>
+    <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>hb.qq.com</TextBoxDomainName>
     <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>False</CheckBoxEnable>
+    <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>www.people.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
-    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
-  </DomainNameItemList>
-  <DomainNameItemList>
-    <CheckBoxEnable>False</CheckBoxEnable>
-    <TextBoxDomainName>weixin.qq.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
     <CheckBoxEnable>True</CheckBoxEnable>
-    <TextBoxDomainName>fanyi.youdao.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <TextBoxDomainName>weixin.qq.com</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
 </NewDataSet>
