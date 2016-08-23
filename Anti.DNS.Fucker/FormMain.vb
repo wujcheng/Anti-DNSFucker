@@ -11,6 +11,11 @@
     Private ThreadResolve As Threading.Thread
     Private Timer As Timer
 
+    Private MouseDownLocation As Point
+    Private FormLastLocation As Point
+
+    Private PanelInner As Panel
+
     Public Sub New()
         InitializeComponent()
 
@@ -20,6 +25,13 @@
             .Text = "Anti-DNSFucker"
             .ControlBox = False
             .FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        End With
+
+        PanelInner = New Panel
+        With PanelInner
+            .Dock = DockStyle.Fill
+            .BorderStyle = BorderStyle.FixedSingle
+            .Parent = Me
         End With
 
         Configuration = New Configuration
@@ -46,18 +58,6 @@
         ThreadResolve.Start()
     End Sub
 
-    'Private Sub StartThreadResolve()
-    '    If ThreadResolve Is Nothing Then
-    '        ThreadResolve = New Threading.Thread(AddressOf ResolveThreadSub)
-    '    End If
-    '    ThreadResolve.SetApartmentState(Threading.ApartmentState.STA)
-
-    '    If ThreadResolve.IsAlive Then
-    '        Exit Sub
-    '    End If
-    '    ThreadResolve.Start()
-    'End Sub
-
     Private Sub InitializeColumnStyleList()
         ColumnStyleList = New ArrayList
         With ColumnStyleList
@@ -73,8 +73,7 @@
         ToolStripMain = New ToolStripMain
         With ToolStripMain
             .Text = Me.Text
-            '.Dock = DockStyle.Fill
-            .Parent = Me
+            .Parent = PanelInner
 
             AddHandler .ToolStripButtonAdd_Click, AddressOf ToolStripButtonAdd_Click
             AddHandler .ToolStripButtonRemove_Click, AddressOf ToolStripButtonRemove_Click
@@ -88,6 +87,9 @@
             AddHandler .ToolStripButtonSave_Click, AddressOf ToolStripButtonSave_Click
             AddHandler .ToolStripButtonOpen_Click, AddressOf ToolStripButtonOpen_Click
             AddHandler .ToolStripButtonRun_Click, AddressOf ToolStripButtonRun_Click
+            AddHandler .ToolStrip_MouseDown, AddressOf ToolStrip_MouseDown
+            AddHandler .ToolStrip_MouseMove, AddressOf ToolStrip_MouseMove
+            AddHandler .ToolStrip_MouseUp, AddressOf ToolStrip_MouseUp
         End With
 
         ShowMessage("Toolbar has been initialized.")
@@ -96,7 +98,7 @@
     Private Sub InitializeStatusStripMain()
         StatusStripMain = New StatusStripMain
         With StatusStripMain
-            .Parent = Me
+            .Parent = PanelInner
         End With
         ShowMessage("Statusbar has been initialized.")
     End Sub
@@ -104,10 +106,10 @@
     Private Sub InitializeTableLayoutPanelHead()
         TableLayoutPanelHead = New TableLayoutPanelHead(ColumnStyleList)
         With TableLayoutPanelHead
-            .Width = Me.ClientSize.Width
+            .Width = PanelInner.Width
             .Location = New Point(0, ToolStripMain.Height)
             .Anchor = AnchorStyles.Left Or AnchorStyles.Right Or AnchorStyles.Top
-            .Parent = Me
+            .Parent = PanelInner
 
             AddHandler .SelectAllCheckedChanged, AddressOf TableLayoutPanelHead_SelectAllCheckedChanged
         End With
@@ -118,9 +120,9 @@
         TableLayoutPanelList = New TableLayoutPanelList(ColumnStyleList)
         With TableLayoutPanelList
             .Location = New Point(0, TableLayoutPanelHead.Height + ToolStripMain.Height)
-            .Size = New Size(Me.ClientSize.Width, Me.ClientSize.Height - TableLayoutPanelHead.Height - ToolStripMain.Height - StatusStripMain.Height)
+            .Size = New Size(PanelInner.Width, PanelInner.Height - TableLayoutPanelHead.Height - ToolStripMain.Height - StatusStripMain.Height)
             .Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-            .Parent = Me
+            .Parent = PanelInner
 
             AddHandler .SelectedChanged, AddressOf TableLayoutPanelList_SelectedChanged
         End With
@@ -144,6 +146,32 @@
         ShowMessage("All domain names are resolved, please click ""Run"" button.")
         AddHandler Timer.Tick, AddressOf Timer_Tick
     End Sub
+
+    Private Sub ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+        ' Change the cursor shape.
+        Me.Cursor = Cursors.SizeAll
+        ' Save the location of mouse.
+        Me.MouseDownLocation = e.Location
+        ' Save the location of FormMain.
+        Me.FormLastLocation = Me.Location
+    End Sub
+
+    Private Sub ToolStrip_MouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+        ' If the mouse button is not pressed, exit this sub.
+        If Not Me.Cursor Is Cursors.SizeAll Then
+            Exit Sub
+        End If
+
+        ' Update the location of the FormMain.
+        Me.Location = New Point(Me.Location.X - Me.MouseDownLocation.X + e.Location.X,
+                                Me.Location.Y - Me.MouseDownLocation.Y + e.Location.Y)
+    End Sub
+
+    Private Sub ToolStrip_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+        ' Recover the cursor shape.
+        Me.Cursor = Cursors.Default
+    End Sub
+
 
     Private Sub ToolStripButtonAdd_Click(sender As Object, e As EventArgs)
         TableLayoutPanelList.AddItem()

@@ -15,9 +15,6 @@
     Private ToolStripButtonSave As ToolStripButton
     Private ToolStripButtonRun As ToolStripButton
 
-    Private MouseDownLocation As Point
-    Private FormLastLocation As Point
-
     Public Event ToolStripButtonAdd_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonRemove_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonQuit_Click(sender As Object, e As EventArgs)
@@ -30,6 +27,9 @@
     Public Event ToolStripButtonOpen_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonSave_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonRun_Click(sender As Object, e As EventArgs)
+    Public Event ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+    Public Event ToolStrip_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+    Public Event ToolStrip_MouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs)
 
     Public Shadows Property Text As String
         Get
@@ -46,10 +46,10 @@
         ToolStripLabelTitle = New ToolStripLabel
         With ToolStripLabelTitle
             .Text = Me.Text
-
-            AddHandler .MouseDown, AddressOf ToolStrip_MouseDown
-            AddHandler .MouseUp, AddressOf ToolStrip_MouseUp
-            AddHandler .MouseMove, AddressOf ToolStrip_MouseMove
+            .ToolTipText = "Drag Here to Move the Form"
+            AddHandler .MouseDown, AddressOf Me_MouseDown
+            AddHandler .MouseUp, AddressOf Me_MouseUp
+            AddHandler .MouseMove, AddressOf Me_MouseMove
         End With
 
         ToolStripButtonAdd = New ToolStripButton
@@ -161,9 +161,9 @@
             .Items.Add(New ToolStripSeparator)
             .Items.Add(ToolStripButtonQuit)
 
-            AddHandler .MouseDown, AddressOf ToolStrip_MouseDown
-            AddHandler .MouseUp, AddressOf ToolStrip_MouseUp
-            AddHandler .MouseMove, AddressOf ToolStrip_MouseMove
+            AddHandler .MouseDown, AddressOf Me_MouseDown
+            AddHandler .MouseUp, AddressOf Me_MouseUp
+            AddHandler .MouseMove, AddressOf Me_MouseMove
         End With
     End Sub
 
@@ -195,41 +195,16 @@
         End If
     End Sub
 
-    Private Sub ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
-        If Me.Parent Is Nothing Then
-            Exit Sub
-        End If
-
-        ' Change the cursor shape.
-        Me.Cursor = Cursors.SizeAll
-        ' Save the location of mouse.
-        Me.MouseDownLocation = e.Location
-        ' Save the location of FormMain.
-        Me.FormLastLocation = Me.Location
+    Private Sub Me_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+        RaiseEvent ToolStrip_MouseDown(sender, e)
     End Sub
 
-    Private Sub ToolStrip_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs)
-        If Me.Parent Is Nothing Then
-            Exit Sub
-        End If
-
-        ' Recover the cursor shape.
-        Me.Cursor = Cursors.Default
+    Private Sub Me_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+        RaiseEvent ToolStrip_MouseUp(sender, e)
     End Sub
 
-    Private Sub ToolStrip_MouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs)
-        If Me.Parent Is Nothing Then
-            Exit Sub
-        End If
-
-        ' If the mouse button is not pressed, exit this sub.
-        If Not Me.Cursor Is Cursors.SizeAll Then
-            Exit Sub
-        End If
-
-        ' Update the location of the FormMain.
-        Me.Parent.Location = New Point(Me.Parent.Location.X - Me.MouseDownLocation.X + e.Location.X,
-                                       Me.Parent.Location.Y - Me.MouseDownLocation.Y + e.Location.Y)
+    Private Sub Me_MouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+        RaiseEvent ToolStrip_MouseMove(sender, e)
     End Sub
 
     Public Sub SetEnable(ByVal Enabled As Boolean)
