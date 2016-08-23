@@ -20,9 +20,10 @@
         InitializeComponent()
 
         With Me
-            .Width = 420
+            .Width = 500
             .Height = 400
             .Text = "Anti-DNSFucker"
+            .Icon = Icons.Taskbar
             .ControlBox = False
             .FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         End With
@@ -63,9 +64,9 @@
         With ColumnStyleList
             .Add(New ColumnStyle(SizeType.Percent, 1))
             .Add(New ColumnStyle(SizeType.Percent, 2))
-            .Add(New ColumnStyle(SizeType.Percent, 5))
-            .Add(New ColumnStyle(SizeType.Percent, 2))
-            .Add(New ColumnStyle(SizeType.Percent, 2))
+            .Add(New ColumnStyle(SizeType.Percent, 9))
+            .Add(New ColumnStyle(SizeType.Percent, 3))
+            .Add(New ColumnStyle(SizeType.Percent, 3))
         End With
     End Sub
 
@@ -143,9 +144,34 @@
                 End If
             End If
         Next
-        ShowMessage("All domain names are resolved, please click ""Run"" button.")
+        ShowMessage("All domain names are resolved, please click ""Run"" button to overwrite the Hosts file.")
         AddHandler Timer.Tick, AddressOf Timer_Tick
     End Sub
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        For Each Control As Object In ToolStripMain.Items
+            If Not TypeOf Control Is ToolStripButton Then
+                Continue For
+            End If
+
+            If Control.Tag Is Nothing Then
+                Continue For
+            End If
+
+            If Not Control.Tag = keyData Then
+                Continue For
+            End If
+
+            If Not CType(Control, ToolStripButton).Enabled Then
+                Exit For
+            End If
+
+            ToolStripMain.ToolStripButton_Click(Control, Nothing)
+            Exit For
+        Next
+
+        Return MyBase.ProcessCmdKey(msg, keyData)
+    End Function
 
     Private Sub ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
         ' Change the cursor shape.
@@ -182,6 +208,11 @@
     End Sub
 
     Private Sub ToolStripButtonQuit_Click(sender As Object, e As EventArgs)
+        If Not ThreadResolve Is Nothing Then
+            If ThreadResolve.ThreadState = Threading.ThreadState.Running Then
+                ThreadResolve.Abort()
+            End If
+        End If
         TableLayoutPanelList.SaveConfiguration()
         End
     End Sub

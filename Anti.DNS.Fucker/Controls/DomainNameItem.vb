@@ -151,7 +151,7 @@
                 .Name = NameOf(TextBoxDomainName)
                 .Margin = TextBoxMargin
                 .BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-                .WaterMarkText = "Please Input Domain Name."
+                .WaterMarkText = "Click Here to Input a New Domain Name."
                 AddHandler .TextChanged, AddressOf TextBoxDomainName_TextChanged
             End With
 

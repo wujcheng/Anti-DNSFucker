@@ -174,6 +174,11 @@
             Me.RowCount -= 1
         Next
 
+        Dim Position As Point = Me.AutoScrollPosition
+        Me.AutoScroll = False
+        Me.AutoScroll = True
+        Me.AutoScrollPosition = New Point(-Position.X, -Position.Y)
+
         DomainNameItem_SelectCheckedChanged(Nothing, Nothing)
     End Sub
 

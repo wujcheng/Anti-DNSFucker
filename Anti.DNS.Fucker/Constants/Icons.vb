@@ -11,4 +11,5 @@
     Public IPv6Disable As Image = Image.FromFile(Application.StartupPath & "\Icons\IPv6Disable.ico")
     Public Open As Image = Image.FromFile(Application.StartupPath & "\Icons\Open.ico")
     Public Run As Image = Image.FromFile(Application.StartupPath & "\Icons\Run.ico")
+    Public Taskbar As Icon = New Icon(Application.StartupPath & "\Icons\Taskbar.ico")
 End Module

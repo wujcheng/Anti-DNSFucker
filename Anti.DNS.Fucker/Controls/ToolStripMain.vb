@@ -55,84 +55,96 @@
         ToolStripButtonAdd = New ToolStripButton
         With ToolStripButtonAdd
             .Image = Icons.Add
-            .ToolTipText = "Add New Domain Name"
+            .Tag = Keys.Control Or Keys.N
+            .ToolTipText = "Add New Domain Name" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonRemove = New ToolStripButton
         With ToolStripButtonRemove
             .Image = Icons.Remove
-            .ToolTipText = "Remove Selected Items"
+            .Tag = Keys.Control Or Keys.X
+            .ToolTipText = "Remove Selected Items" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonQuit = New ToolStripButton
         With ToolStripButtonQuit
             .Image = Icons.Quit
-            .ToolTipText = "Quit"
+            .Tag = Keys.Alt Or Keys.Q
+            .ToolTipText = "Quit" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonSave = New ToolStripButton
         With ToolStripButtonSave
             .Image = Icons.Save
-            .ToolTipText = "Save Configuration to File"
+            .Tag = Keys.Control Or Keys.S
+            .ToolTipText = "Save Configuration to File" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonEnable = New ToolStripButton
         With ToolStripButtonEnable
             .Image = Icons.Enable
-            .ToolTipText = "Enable Selected Items"
+            .Tag = Keys.Control Or Keys.E
+            .ToolTipText = "Enable Selected Items" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonDisable = New ToolStripButton
         With ToolStripButtonDisable
             .Image = Icons.Disable
-            .ToolTipText = "Disable Selected Items"
+            .Tag = Keys.Control Or Keys.D
+            .ToolTipText = "Disable Selected Items" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonIPv4Enable = New ToolStripButton
         With ToolStripButtonIPv4Enable
             .Image = Icons.IPv4Enable
-            .ToolTipText = "Get IPv4 Addresses"
+            .Tag = Keys.Control Or Keys.D4
+            .ToolTipText = "Get IPv4 Addresses" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonIPv4Disable = New ToolStripButton
         With ToolStripButtonIPv4Disable
             .Image = Icons.IPv4Disable
-            .ToolTipText = "Don't Get IPv4 Addresses"
+            .Tag = Keys.Control Or Keys.Shift Or Keys.D4
+            .ToolTipText = "Don't Get IPv4 Addresses" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonIPv6Enable = New ToolStripButton
         With ToolStripButtonIPv6Enable
             .Image = Icons.IPv6Enable
-            .ToolTipText = "Get IPv6 Addresses"
+            .Tag = Keys.Control Or Keys.D6
+            .ToolTipText = "Get IPv6 Addresses" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonIPv6Disable = New ToolStripButton
         With ToolStripButtonIPv6Disable
             .Image = Icons.IPv6Disable
-            .ToolTipText = "Don't Get IPv6 Addresses"
+            .Tag = Keys.Control Or Keys.Shift Or Keys.D6
+            .ToolTipText = "Don't Get IPv6 Addresses" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonOpen = New ToolStripButton
         With ToolStripButtonOpen
             .Image = Icons.Open
-            .ToolTipText = "Open Configuration"
+            .Tag = Keys.Control Or Keys.O
+            .ToolTipText = "Open Configuration" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
         ToolStripButtonRun = New ToolStripButton
         With ToolStripButtonRun
             .Image = Icons.Run
-            .ToolTipText = "Run"
+            .Tag = Keys.F5
+            .ToolTipText = "Run" & vbCr & KeyDataToString(.Tag)
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
@@ -167,7 +179,12 @@
         End With
     End Sub
 
-    Private Sub ToolStripButton_Click(sender As Object, e As EventArgs)
+    Private Function KeyDataToString(ByVal KeyData As Keys) As String
+        Dim KeysConverter As New KeysConverter
+        Return KeysConverter.ConvertToString(KeyData)
+    End Function
+
+    Public Sub ToolStripButton_Click(sender As Object, e As EventArgs)
         If sender Is ToolStripButtonAdd Then
             RaiseEvent ToolStripButtonAdd_Click(sender, e)
         ElseIf sender Is ToolStripButtonRemove Then
