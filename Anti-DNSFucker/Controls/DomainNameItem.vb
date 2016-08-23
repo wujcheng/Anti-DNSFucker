@@ -19,6 +19,10 @@
     Delegate Sub DelegateSetCheckBoxGetIPvXEnable()
     Public IsResolved As Boolean = False
 
+    Private SuccessfulColor As Color = Color.FromArgb(&HFF7FFF7F)
+    Private FailedColor As Color = Color.FromArgb(&HFFFF7F7F)
+
+
     Public Function Resolve() As Boolean
         Dim IP As New IP
         IP.Resolve(DomainName)
@@ -37,6 +41,8 @@
 
         CheckBoxGetIPv4Address.Enabled = CheckBoxEnable.Checked
         CheckBoxGetIPv6Address.Enabled = CheckBoxEnable.Checked
+
+        TextBoxDomainName.BackColor = If(CheckBoxGetIPv4Address.Broken And CheckBoxGetIPv6Address.Broken, FailedColor, SuccessfulColor)
     End Sub
 
     Public Property Selected As Boolean

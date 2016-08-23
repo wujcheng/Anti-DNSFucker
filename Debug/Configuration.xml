@@ -31,7 +31,7 @@
     <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>True</CheckBoxEnable>
+    <CheckBoxEnable>False</CheckBoxEnable>
     <TextBoxDomainName>scholar.google.com</TextBoxDomainName>
     <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
@@ -56,20 +56,20 @@
   </DomainNameItemList>
   <DomainNameItemList>
     <CheckBoxEnable>False</CheckBoxEnable>
-    <TextBoxDomainName>hudbt.hust.edu.cn</TextBoxDomainName>
+    <TextBoxDomainName>www.wqnmlgbd.com</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>True</CheckBoxEnable>
+    <TextBoxDomainName>www.twogirlsonecup.com</TextBoxDomainName>
     <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
     <CheckBoxEnable>True</CheckBoxEnable>
-    <TextBoxDomainName>msdn.microsoft.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
-    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
-  </DomainNameItemList>
-  <DomainNameItemList>
-    <CheckBoxEnable>True</CheckBoxEnable>
-    <TextBoxDomainName>www.zhihu.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <TextBoxDomainName>www.233.co.sjp</TextBoxDomainName>
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
@@ -87,7 +87,7 @@
   <DomainNameItemList>
     <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>hdchina.club</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
@@ -129,13 +129,13 @@
   <DomainNameItemList>
     <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>www.people.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
     <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>weixin.qq.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
 </NewDataSet>
