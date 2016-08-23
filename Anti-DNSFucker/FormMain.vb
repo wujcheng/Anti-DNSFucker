@@ -269,8 +269,9 @@
 
         Dim Hosts As New Hosts
         For Each DomainNameItem As DomainNameItem In TableLayoutPanelList.Controls
+            Hosts.Remove(DomainNameItem.DomainName)
+
             If Not DomainNameItem.Enabled Then
-                Hosts.Remove(DomainNameItem.DomainName)
                 Continue For
             End If
 

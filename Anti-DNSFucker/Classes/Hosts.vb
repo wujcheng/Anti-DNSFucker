@@ -65,6 +65,8 @@ Public Class Hosts
     End Function
 
     Public Sub Remove(ByVal DomainName As String)
+        Dim RemoveItemList As New ArrayList
+
         For Each Item As String In Items
             Item = Item.Trim
             If Item.Trim = "" Then
@@ -78,9 +80,12 @@ Public Class Hosts
             Dim _DomainName As String = Item.Remove(0, Item.IndexOf(" ") + 1).Trim
 
             If DomainName.Trim.ToLower = _DomainName.Trim.ToLower Then
-                Items.Remove(Item)
-                Exit Sub
+                RemoveItemList.Add(Item)
             End If
+        Next
+
+        For Each Item As String In RemoveItemList
+            Items.Remove(Item)
         Next
     End Sub
 

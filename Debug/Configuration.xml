@@ -27,11 +27,11 @@
   <DomainNameItemList>
     <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>www.google.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>False</CheckBoxEnable>
+    <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>scholar.google.com</TextBoxDomainName>
     <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
@@ -43,19 +43,19 @@
     <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>False</CheckBoxEnable>
+    <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>www.facebook.com</TextBoxDomainName>
-    <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
-    <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>False</CheckBoxEnable>
+    <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>geoip.neu.edu.cn</TextBoxDomainName>
     <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>False</CheckBoxEnable>
+    <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>www.wqnmlgbd.com</TextBoxDomainName>
     <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
