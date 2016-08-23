@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 '查看程序集特性的值
 
-<Assembly: AssemblyTitle("Anti.DNS.Fucker")>
+<Assembly: AssemblyTitle("Anti-DNSFucker")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("Anti.DNS.Fucker")>
+<Assembly: AssemblyProduct("Anti-DNSFucker")>
 <Assembly: AssemblyCopyright("Copyright ©  2016")>
 <Assembly: AssemblyTrademark("")>
 

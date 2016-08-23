@@ -23,7 +23,7 @@
             .Width = 500
             .Height = 400
             .Text = "Anti-DNSFucker"
-            .Icon = Icons.Taskbar
+            .Icon = Icons.Logo
             .ControlBox = False
             .FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         End With
@@ -88,6 +88,7 @@
             AddHandler .ToolStripButtonSave_Click, AddressOf ToolStripButtonSave_Click
             AddHandler .ToolStripButtonOpen_Click, AddressOf ToolStripButtonOpen_Click
             AddHandler .ToolStripButtonRun_Click, AddressOf ToolStripButtonRun_Click
+            AddHandler .ToolStripButtonAbout_Click, AddressOf ToolStripButtonAbout_Click
             AddHandler .ToolStrip_MouseDown, AddressOf ToolStrip_MouseDown
             AddHandler .ToolStrip_MouseMove, AddressOf ToolStrip_MouseMove
             AddHandler .ToolStrip_MouseUp, AddressOf ToolStrip_MouseUp
@@ -292,6 +293,14 @@
         Next
         Hosts.Save()
         MsgBox("The Hosts file has been overwritted.", MsgBoxStyle.OkOnly, "Done")
+    End Sub
+
+    Public Sub ToolStripButtonAbout_Click(sender As Object, e As EventArgs)
+        Dim FormAbout As New FormAbout
+        FormAbout.StartPosition = FormStartPosition.Manual
+        FormAbout.Location = New Point(Me.Location.X + 0.5 * (Me.Width - FormAbout.Width),
+                                       Me.Location.Y + 0.5 * (Me.Height - FormAbout.Height))
+        FormAbout.ShowDialog()
     End Sub
 
     Private Sub TableLayoutPanelHead_SelectAllCheckedChanged(sender As Object, e As EventArgs)

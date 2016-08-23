@@ -14,6 +14,7 @@
     Private ToolStripButtonOpen As ToolStripButton
     Private ToolStripButtonSave As ToolStripButton
     Private ToolStripButtonRun As ToolStripButton
+    Private ToolStripButtonAbout As ToolStripButton
 
     Public Event ToolStripButtonAdd_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonRemove_Click(sender As Object, e As EventArgs)
@@ -27,6 +28,7 @@
     Public Event ToolStripButtonOpen_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonSave_Click(sender As Object, e As EventArgs)
     Public Event ToolStripButtonRun_Click(sender As Object, e As EventArgs)
+    Public Event ToolStripButtonAbout_Click(sender As Object, e As EventArgs)
     Public Event ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
     Public Event ToolStrip_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs)
     Public Event ToolStrip_MouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs)
@@ -148,6 +150,14 @@
             AddHandler .Click, AddressOf ToolStripButton_Click
         End With
 
+        ToolStripButtonAbout = New ToolStripButton
+        With ToolStripButtonAbout
+            .Image = Icons.About
+            .Tag = Keys.Control Or Keys.H
+            .ToolTipText = "About" & vbCr & KeyDataToString(.Tag)
+            AddHandler .Click, AddressOf ToolStripButton_Click
+        End With
+
         With Me
             .GripStyle = ToolStripGripStyle.Hidden
             .RenderMode = ToolStripRenderMode.Professional
@@ -170,6 +180,8 @@
             .Items.Add(ToolStripButtonSave)
             .Items.Add(New ToolStripSeparator)
             .Items.Add(ToolStripButtonRun)
+            .Items.Add(New ToolStripSeparator)
+            .Items.Add(ToolStripButtonAbout)
             .Items.Add(New ToolStripSeparator)
             .Items.Add(ToolStripButtonQuit)
 
@@ -209,6 +221,8 @@
             RaiseEvent ToolStripButtonSave_Click(sender, e)
         ElseIf sender Is ToolStripButtonRun Then
             RaiseEvent ToolStripButtonRun_Click(sender, e)
+        ElseIf sender Is ToolStripButtonAbout Then
+            RaiseEvent ToolStripButtonAbout_Click(sender, e)
         End If
     End Sub
 

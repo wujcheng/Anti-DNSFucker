@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Anti.DNS.Fucker.FormMain
+            Me.MainForm = Global.AntiDNSFucker.FormMain
         End Sub
     End Class
 End Namespace
