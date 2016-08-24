@@ -13,7 +13,7 @@ One day, I found that [this web site] can give the real IP addresses. When the D
 2. Run `.\Debug\Anti-DNSFucker.exe`.
 3. The interface of Anti-DNSFucker is shown as following figure.<br>
    <img src = ".\Screenshots\MainInterface.png">
-4. You will see that the list is empty. You can click <img src = ".\Debug\Icons\Add.ico" height = 15 style="margin-bottom:-2px" alt = "add button"> to add a new blank item in the list. You can input the domain name of a web site which is polluted by DNSFucker.
+4. You will see that the list is empty. You can click <img src = ".\Debug\Icons\Add.ico" height = 15 title = "add button"> to add a new blank item in the list. You can input the domain name of a web site which is polluted by DNSFucker.
 5. 
 
 [this web site]:http://geoip.neu.edu.cn/
