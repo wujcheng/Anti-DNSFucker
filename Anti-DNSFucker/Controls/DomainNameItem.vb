@@ -25,7 +25,7 @@
 
     Public Function Resolve() As Boolean
         Dim IP As New IP
-        IP.Resolve(DomainName)
+        IP.ResolveByNEU(DomainName)
         IPv4Address = IP.IPv4Address
         IPv6Address = IP.IPv6Address
 

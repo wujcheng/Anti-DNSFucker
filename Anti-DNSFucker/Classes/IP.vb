@@ -3,10 +3,8 @@
 Public Class IP
     Public IPv4Address As String
     Public IPv6Address As String
-
-    Private WebBrowser As WebBrowser
-    Private IsResolving As Boolean
-    Private Timer As Timer
+    Private Const TimeOut As Integer = 2000
+    Private Const Flag As String = "您查询的IP地址"
 
     Public Sub New()
         With Me
@@ -15,54 +13,74 @@ Public Class IP
         End With
     End Sub
 
-    Public Sub Resolve(ByVal DomainName As String)
+    Public Sub ResolveByNEU(ByVal DomainName As String)
         IPv4Address = ""
         IPv6Address = ""
 
-        Timer = New Timer
-        With Timer
-            .Interval = 2000
-            AddHandler .Tick, AddressOf Timer_Tick
-            .Start()
-        End With
-        WebBrowser = New WebBrowser
-        AddHandler WebBrowser.DocumentCompleted, AddressOf WebBrowser_DocumentCompleted
+        Dim Request As System.Net.HttpWebRequest = System.Net.HttpWebRequest.Create("http://geoip.neu.edu.cn/?ip=" & DomainName)
+        Request.Timeout = TimeOut
 
-        WebBrowser.Url = New Uri("http://geoip.neu.edu.cn/?ip=" & DomainName)
-        IsResolving = True
-        While IsResolving
-            Application.DoEvents()
-        End While
+        Dim HtmlCode As String = ""
+        Try
+            HtmlCode = (New System.IO.StreamReader(Request.GetResponse().GetResponseStream())).ReadToEnd
+        Catch ex As Exception
+            Exit Sub
+        End Try
 
-        WebBrowser.Dispose()
-    End Sub
-
-    Public Sub Timer_Tick(sender As Object, e As EventArgs)
-        IsResolving = False
-        Timer.Stop()
-        Timer.Dispose()
-    End Sub
-
-    Private Sub WebBrowser_DocumentCompleted()
-        If WebBrowser.DocumentText.Contains("您的IP地址") Then
-            IsResolving = False
+        If Not HtmlCode.Contains(Flag) Then
             Exit Sub
         End If
 
-        For Each SpanName As String In {"div", "span"}
-            For Each HtmlElement As HtmlElement In WebBrowser.Document.GetElementsByTagName(SpanName)
-                If HtmlElement.InnerText Is Nothing Then
-                    Continue For
-                End If
+        HtmlCode = HtmlCode.Remove(0, HtmlCode.IndexOf(Flag) + Flag.Length).Replace(" ", "")
 
-                If Regexes.IPv4Address.IsMatch(HtmlElement.InnerText) Then
-                    IPv4Address = HtmlElement.InnerText.Trim
-                ElseIf Regexes.IPv6Address.IsMatch(HtmlElement.InnerText) Then
-                    IPv6Address = HtmlElement.InnerText.Trim
-                End If
-            Next
+        For Each IPAddress As String In GetIPAddresses(HtmlCode)
+            If Regexes.IPv4Address.IsMatch(IPAddress) Then
+                IPv4Address = IPAddress
+            ElseIf Regexes.IPv6Address.IsMatch(IPAddress) Then
+                IPv6Address = IPAddress
+            End If
         Next
 
-        IsResolving = False
     End Sub
+
+    Private Function GetIPAddresses(ByVal HtmlCode As String) As ArrayList
+        Dim IPAddressList As New ArrayList
+
+        Dim IPv4AddressContainer As New Regex(">" & Regexes.IPv4Address.ToString & "<")
+        Dim IPv6AddressContainer As New Regex(">" & Regexes.IPv6Address.ToString & "<")
+
+        For Each IPAddress As String In JoinMatches(IPv4AddressContainer.Matches(HtmlCode), IPv6AddressContainer.Matches(HtmlCode))
+            IPAddress = IPAddress.Trim("<").Trim(">").Trim()
+
+            If Not System.Net.IPAddress.TryParse(IPAddress, Nothing) Then
+                Continue For
+            End If
+
+            Dim ExistIPAddress As Boolean = False
+            For Each Item As String In IPAddressList
+                If Item = IPAddress Then
+                    ExistIPAddress = True
+                    Exit For
+                End If
+            Next
+
+            If Not ExistIPAddress Then
+                IPAddressList.Add(IPAddress)
+            End If
+        Next
+
+        Return IPAddressList
+    End Function
+
+    Private Function JoinMatches(ByVal FirstMatches As System.Text.RegularExpressions.MatchCollection, ByVal SecondMatches As System.Text.RegularExpressions.MatchCollection) As ArrayList
+        Dim Matches As New ArrayList
+        For i As Integer = 0 To FirstMatches.Count - 1
+            Matches.Add(FirstMatches.Item(i).Value)
+        Next
+
+        For i As Integer = 0 To SecondMatches.Count - 1
+            Matches.Add(SecondMatches.Item(i).Value)
+        Next
+        Return Matches
+    End Function
 End Class
