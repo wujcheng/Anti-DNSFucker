@@ -42,11 +42,11 @@
 65.52.103.102 msdn.microsoft.com
 222.161.220.33 www.zhihu.com
 121.195.178.202 fanyi.youdao.com
-119.75.217.109 www.baidu.com
-2404:6800:4005:801::2004 www.google.com
-173.194.38.209 scholar.google.com
-173.194.72.139 www.youtube.com
-2404:6800:4005:803::200e www.youtube.com
+119.75.218.70 www.baidu.com
+2404:6800:4005:802::2004 www.google.com
+173.194.38.212 scholar.google.com
+173.194.72.138 www.youtube.com
+2404:6800:4005:80a::200e www.youtube.com
 202.118.1.66 geoip.neu.edu.cn
 5.22.149.135 www.twogirlsonecup.com
 43.250.12.42 www.youku.com
@@ -57,6 +57,6 @@
 151.101.129.69 tex.stackexchange.com
 23.7.134.153 www.sciencedirect.com
 202.118.0.251 ipv6.neu6.edu.cn
-2402:4e00::b hb.qq.com
-184.28.218.96 www.people.com
+2402:4e00::a hb.qq.com
+184.28.218.112 www.people.com
 182.254.42.91 weixin.qq.com

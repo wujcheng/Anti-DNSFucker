@@ -287,14 +287,21 @@
                 Hosts.Add(DomainNameItem.DomainName, DomainNameItem.IPv6Address)
             End If
         Next
-        'Try
-        '    Hosts.Save()
-        'Catch ex As Exception
-        '    Hosts.Save(".\Hosts")
 
-        'End Try
-        Hosts.Save(".\Hosts")
-
+        Try
+            Hosts.Save()
+        Catch ex As Exception
+            Hosts.Save(".\Hosts")
+            Dim Process As New Process
+            With Process
+                .StartInfo.FileName = Application.StartupPath & "\Toolkit.exe"
+                .StartInfo.CreateNoWindow = True
+                .StartInfo.Arguments = "MoveHostsFile"
+                .StartInfo.Verb = "runas"
+                .Start()
+                .WaitForExit()
+            End With
+        End Try
 
         MsgBox("The Hosts file has been overwritted.", MsgBoxStyle.OkOnly, "Done")
     End Sub
