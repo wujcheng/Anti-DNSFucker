@@ -176,6 +176,10 @@
     End Function
 
     Private Sub ToolStrip_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs)
+        If TypeOf sender Is ToolStripMain Then
+            Exit Sub
+        End If
+
         ' Change the cursor shape.
         Me.Cursor = Cursors.SizeAll
         ' Save the location of mouse.
@@ -283,7 +287,15 @@
                 Hosts.Add(DomainNameItem.DomainName, DomainNameItem.IPv6Address)
             End If
         Next
-        Hosts.Save()
+        'Try
+        '    Hosts.Save()
+        'Catch ex As Exception
+        '    Hosts.Save(".\Hosts")
+
+        'End Try
+        Hosts.Save(".\Hosts")
+
+
         MsgBox("The Hosts file has been overwritted.", MsgBoxStyle.OkOnly, "Done")
     End Sub
 

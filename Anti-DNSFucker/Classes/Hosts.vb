@@ -96,4 +96,12 @@ Public Class Hosts
         Next
         Writer.Close()
     End Sub
+
+    Public Sub Save(ByVal HostsFilePath As String)
+        Dim Writer As New IO.StreamWriter(HostsFilePath, False, System.Text.Encoding.Default)
+        For Each Line As String In Items
+            Writer.WriteLine(Line)
+        Next
+        Writer.Close()
+    End Sub
 End Class
