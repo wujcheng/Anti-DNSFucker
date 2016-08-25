@@ -1,4 +1,4 @@
- # Anti-DNSFucker
+# Anti-DNSFucker
 
 A Toolkit for Defending against DNS Cache Pollution.
 
@@ -46,20 +46,20 @@ One day, I found that [this web site] can give the real IP addresses. When the D
 17. Drag the title to move the form.<br>
     ![Drag Title to Move]
 18. One more thing, every button on the toolbar has a shortcut key.
-  * <img src = "/Publish/Icons/Add.ico" height = 15 title = "add button">, `ctrl` + `N`,
-  * <img src = "/Publish/Icons/Remove.ico" height = 15 title = "remove button">, `ctrl` + `X`,
-  * <img src = "/Publish/Icons/Enable.ico" height = 15 title = "enable button">, `ctrl` + `E`,
-  * <img src = "/Publish/Icons/Disable.ico" height = 15 title = "disable button">, `ctrl` + `D`,
-  * <img src = "/Publish/Icons/IPV4Enable.ico" height = 15 title = "get IPv4 button">, `ctrl` + `4`,
-  * <img src = "/Publish/Icons/IPV4Disable.ico" height = 15 title = "get IPv4 button">, `ctrl` + `shift` + `4`,
-  * <img src = "/Publish/Icons/IPV6Enable.ico" height = 15 title = "get IPv6 button">, `ctrl` + `6`,
-  * <img src = "/Publish/Icons/IPV6Disable.ico" height = 15 title = "get IPv6 button">, `ctrl` + `shift` + `6`,
-  * <img src = "/Publish/Icons/Open.ico" height = 15 title = "open configuration button">, `ctrl` + `O`,
-  * <img src = "/Publish/Icons/SaveAs.ico" height = 15 title = "save configuration button">, `ctrl` + `S`,
-  * <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button">, `F5`,
-  * <img src = "/Publish/Icons/Refresh.ico" height = 15 title = "refresh button">, `ctrl` + `R`,
-  * <img src = "/Publish/Icons/About.ico" height = 15 title = "about button">, `ctrl` + `H`,
-  * <img src = "/Publish/Icons/Quit.ico" height = 15 title = "quit button">, `atl` + `Q`.
+  * <img src = "/Publish/Icons/Add.ico" height = 15 title = "add button"> `ctrl` + `N`,
+  * <img src = "/Publish/Icons/Remove.ico" height = 15 title = "remove button"> `ctrl` + `X`,
+  * <img src = "/Publish/Icons/Enable.ico" height = 15 title = "enable button"> `ctrl` + `E`,
+  * <img src = "/Publish/Icons/Disable.ico" height = 15 title = "disable button"> `ctrl` + `D`,
+  * <img src = "/Publish/Icons/IPV4Enable.ico" height = 15 title = "get IPv4 button"> `ctrl` + `4`,
+  * <img src = "/Publish/Icons/IPV4Disable.ico" height = 15 title = "get IPv4 button"> `ctrl` + `shift` + `4`,
+  * <img src = "/Publish/Icons/IPV6Enable.ico" height = 15 title = "get IPv6 button"> `ctrl` + `6`,
+  * <img src = "/Publish/Icons/IPV6Disable.ico" height = 15 title = "get IPv6 button"> `ctrl` + `shift` + `6`,
+  * <img src = "/Publish/Icons/Open.ico" height = 15 title = "open configuration button"> `ctrl` + `O`,
+  * <img src = "/Publish/Icons/SaveAs.ico" height = 15 title = "save configuration button"> `ctrl` + `S`,
+  * <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> `F5`,
+  * <img src = "/Publish/Icons/Refresh.ico" height = 15 title = "refresh button"> `ctrl` + `R`,
+  * <img src = "/Publish/Icons/About.ico" height = 15 title = "about button"> `ctrl` + `H`,
+  * <img src = "/Publish/Icons/Quit.ico" height = 15 title = "quit button"> `atl` + `Q`.
 19. Cannot remember? If you hover your mouse on these buttons, the tooltips will appear.<br>
    ![Tooltip]
 
