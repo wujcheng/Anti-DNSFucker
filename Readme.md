@@ -19,9 +19,10 @@ One day, I found that [this web site] can give the real IP addresses. When the D
    ![Input Google Domain Name]
 6. If you want to add two kinds of IP address, IPv4 and IPv6, into the hosts file, you need to select these two checkboxes.<br>
    ![IPv4 And IPv6]
-7. You can click <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> to overwrite the hosts file. Then you can counterfuck the [Great Firewall].
+7. You can click <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> to overwrite the hosts file. Then you can counterfuck the [Great Firewall].<br>
+   ![Done]
 8. The program first tries to overwrite the hosts file, if the result is permission denied, it will ask for the administrator rights. Please click `yes` button.<br>
-  ![Done]
+   ![User Account Control]
 9. One day, you want to obtain IP address of [www.google.com] from DNS, you can unselect the enable checkbox which is in front of the textbox. Then click <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> to recover the hosts file.<br>
    ![Disable Google Item]
 10. Day after day, the list is bigger and bigger. The operation of this list is harder and harder.<br>
@@ -98,6 +99,7 @@ I would like to thank the anonymous referees for their helpful comments and sugg
 [Big List]:/Screenshots/BigList.png "Big List"
 [Tooltip]:/Screenshots/Tooltip.png "Tooltip"
 [Done]:/Screenshots/Done.png "Done"
+[User Account Control]:/Screenshots/UserAccountControl.png "User Account Control"
 [Drag Title to Move]:/Screenshots/DragTitleToMove.png "Drag Title to Move"
 [Refresh]:/Screenshots/Refresh.png "Refresh"
 [Open]:/Screenshots/Open.png "Open"
