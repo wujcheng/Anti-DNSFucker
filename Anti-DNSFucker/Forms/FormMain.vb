@@ -290,17 +290,21 @@
 
         Try
             Hosts.Save()
-        Catch ex As Exception
+        Catch
             Hosts.Save(".\Hosts")
-            Dim Process As New Process
-            With Process
-                .StartInfo.FileName = Application.StartupPath & "\Toolkit.exe"
-                .StartInfo.CreateNoWindow = True
-                .StartInfo.Arguments = "MoveHostsFile"
-                .StartInfo.Verb = "runas"
-                .Start()
-                .WaitForExit()
-            End With
+            Try
+                Dim Process As New Process
+                With Process
+                    .StartInfo.FileName = Application.StartupPath & "\Toolkit.exe"
+                    .StartInfo.CreateNoWindow = True
+                    .StartInfo.Arguments = "MoveHostsFile"
+                    .StartInfo.Verb = "runas"
+                    .Start()
+                    .WaitForExit()
+                End With
+            Catch
+                Exit Sub
+            End Try
         End Try
 
         MsgBox("The Hosts file has been overwritted.", MsgBoxStyle.OkOnly, "Done")
