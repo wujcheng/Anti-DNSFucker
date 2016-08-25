@@ -20,14 +20,14 @@ One day, I found that [this web site] can give the real IP addresses. When the D
 6. If you want to add two kinds of IP address, IPv4 and IPv6, into the hosts file, you need to select these two checkboxes.<br>
    ![IPv4 And IPv6]
 7. You can click <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> to overwrite the hosts file. Then you can counterfuck the [Great Firewall].
-8. The program first tries to overwrite the hosts file, if the result is permission denied, it will ask for the administrator rights. Please click `yes` button.
-9. If you want to re-resolve all domain names in the list, you can click <img src = "/Publish/Icons/Refresh.ico" height = 15 title = "refresh button">.
-10. One day, you want to obtain IP address of [www.google.com] from DNS, you can unselect the enable checkbox which is in front of the textbox. Then click <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> to recover the hosts file.<br>
+8. The program first tries to overwrite the hosts file, if the result is permission denied, it will ask for the administrator rights. Please click `yes` button.<br>
+  ![Done]
+9. One day, you want to obtain IP address of [www.google.com] from DNS, you can unselect the enable checkbox which is in front of the textbox. Then click <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> to recover the hosts file.<br>
    ![Disable Google Item]
-11. Day after day, the list is bigger and bigger. The operation of this list is harder and harder.<br>
+10. Day after day, the list is bigger and bigger. The operation of this list is harder and harder.<br>
    ![Big List]
-12. Don't worry. Anti-DNSFucker provides batch operations. You may notice that on the leftmost, there are a column of checkboxes. You can select a group of domain names, and use the buttons on the toolbar to modify their configurations.
-13. If you select a group of domain names, the disabled buttons on the toolbar are enabled.
+11. Don't worry. Anti-DNSFucker provides batch operations. You may notice that on the leftmost, there are a column of checkboxes. You can select a group of domain names, and use the buttons on the toolbar to modify their configurations.
+12. If you select a group of domain names, the disabled buttons on the toolbar are enabled.
   * You can click <img src = "/Publish/Icons/Remove.ico" height = 15 title = "remove button"> to remove the selected items.
   * You can click <img src = "/Publish/Icons/Enable.ico" height = 15 title = "enable button"> to enable the selected items.
   * You can click <img src = "/Publish/Icons/Disable.ico" height = 15 title = "disable button"> to disable the selected items.
@@ -35,24 +35,33 @@ One day, I found that [this web site] can give the real IP addresses. When the D
   * You can click <img src = "/Publish/Icons/IPV4Disable.ico" height = 15 title = "get IPv4 button"> to unselect their `Get IPv4` checkboxes.
   * You can click <img src = "/Publish/Icons/IPV6Enable.ico" height = 15 title = "get IPv6 button"> to select their `Get IPv6` checkboxes.
   * You can click <img src = "/Publish/Icons/IPV6Disable.ico" height = 15 title = "get IPv6 button"> to unselect their `Get IPv6` checkboxes.
-14. If you want to export the list and send it to one of your friends, you can click <img src = "/Publish/Icons/SaveAs.ico" height = 15 title = "save configuration button"> to save the list to a `.cfg` file. Your friend receives this `.cfg` file and clicks <img src = "/Publish/Icons/Open.ico" height = 15 title = "open configuration button"> and selects this `.cfg` file into his/her list.
+13. If you want to re-resolve all domain names in the list, you can click <img src = "/Publish/Icons/Refresh.ico" height = 15 title = "refresh button">.<br>
+   ![Refresh]
+14. If you want to export the list and send it to one of your friends, you can click <img src = "/Publish/Icons/SaveAs.ico" height = 15 title = "save configuration button"> to save the list to a `.cfg` file.<br>
+   ![Save]<br>
+   Your friend receives this `.cfg` file and clicks <img src = "/Publish/Icons/Open.ico" height = 15 title = "open configuration button"> and selects this `.cfg` file into his/her list.<br>
+   ![Open]
 15. Click <img src = "/Publish/Icons/About.ico" height = 15 title = "about button"> to show the about dialog.
 16. Click <img src = "/Publish/Icons/Quit.ico" height = 15 title = "quit button"> to exit this program.
-17. One more thing, every button on the toolbar has a shortcut key.
+17. Drag the title to move the form.<br>
+    ![Drag Title to Move]
+18. One more thing, every button on the toolbar has a shortcut key.
   * <img src = "/Publish/Icons/Add.ico" height = 15 title = "add button">, `ctrl` + `N`,
-  * <img src = "/Publish/Icons/Remove.ico" height = 15 title = "remove button">, 
-  * <img src = "/Publish/Icons/Enable.ico" height = 15 title = "enable button">
-  * <img src = "/Publish/Icons/Disable.ico" height = 15 title = "disable button">
-  * <img src = "/Publish/Icons/IPV4Enable.ico" height = 15 title = "get IPv4 button">
-  * <img src = "/Publish/Icons/IPV4Disable.ico" height = 15 title = "get IPv4 button">
-  * <img src = "/Publish/Icons/IPV6Enable.ico" height = 15 title = "get IPv6 button">
-  * <img src = "/Publish/Icons/IPV6Disable.ico" height = 15 title = "get IPv6 button">
-  * <img src = "/Publish/Icons/Open.ico" height = 15 title = "open configuration button">
-  * <img src = "/Publish/Icons/SaveAs.ico" height = 15 title = "save configuration button">
-  * <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button">
-  * <img src = "/Publish/Icons/Refresh.ico" height = 15 title = "refresh button">
-  * <img src = "/Publish/Icons/About.ico" height = 15 title = "about button">
-  * <img src = "/Publish/Icons/Quit.ico" height = 15 title = "quit button">
+  * <img src = "/Publish/Icons/Remove.ico" height = 15 title = "remove button">, `ctrl` + `X`,
+  * <img src = "/Publish/Icons/Enable.ico" height = 15 title = "enable button">, `ctrl` + `E`,
+  * <img src = "/Publish/Icons/Disable.ico" height = 15 title = "disable button">, `ctrl` + `D`,
+  * <img src = "/Publish/Icons/IPV4Enable.ico" height = 15 title = "get IPv4 button">, `ctrl` + `4`,
+  * <img src = "/Publish/Icons/IPV4Disable.ico" height = 15 title = "get IPv4 button">, `ctrl` + `shift` + `4`,
+  * <img src = "/Publish/Icons/IPV6Enable.ico" height = 15 title = "get IPv6 button">, `ctrl` + `6`,
+  * <img src = "/Publish/Icons/IPV6Disable.ico" height = 15 title = "get IPv6 button">, `ctrl` + `shift` + `6`,
+  * <img src = "/Publish/Icons/Open.ico" height = 15 title = "open configuration button">, `ctrl` + `O`,
+  * <img src = "/Publish/Icons/SaveAs.ico" height = 15 title = "save configuration button">, `ctrl` + `S`,
+  * <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button">, `F5`,
+  * <img src = "/Publish/Icons/Refresh.ico" height = 15 title = "refresh button">, `ctrl` + `R`,
+  * <img src = "/Publish/Icons/About.ico" height = 15 title = "about button">, `ctrl` + `H`,
+  * <img src = "/Publish/Icons/Quit.ico" height = 15 title = "quit button">, `atl` + `Q`.
+19. Cannot remember? If you hover your mouse on these buttons, the tooltips will appear.<br>
+   ![Tooltip]
 
 ## Supported Operating Systems
 
@@ -87,4 +96,10 @@ I would like to thank the anonymous referees for their helpful comments and sugg
 [IPv4 And IPv6]:/Screenshots/IPv4AndIPv6.png "IPv4 And IPv6"
 [Disable Google Item]:/Screenshots/DisableGoogleItem.png "Disable Google Item"
 [Big List]:/Screenshots/BigList.png "Big List"
+[Tooltip]:/Screenshots/Tooltip.png "Tooltip"
+[Done]:/Screenshots/Done.png "Done"
+[Drag Title to Move]:/Screenshots/DragTitleToMove.png "Drag Title to Move"
+[Refresh]:/Screenshots/Refresh.png "Refresh"
+[Open]:/Screenshots/Open.png "Open"
+[Save]:/Screenshots/Save.png "Save"
 [License.md]:/License.md
