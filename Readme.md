@@ -1,11 +1,19 @@
 # Anti-DNSFucker <img src = "/Publish/Icons/Logo.png" height = 120 align="right"> 
 
-A Toolkit for Defending against DNS Cache Pollution.
+A Software for Defending against DNS Cache Pollution.
 
 ## Introduction
 Thanks for the [Great Firewall], we have to suffer the DNS cache pollution, also referred to as DNS spoofing. You see,  the [Great Firewall] is a DNSFucker, sometimes. Yeah, the word "sometimes" is exactly right, because the [Great Firewall], most of its time, fucks something else.
 
 One day, I found that [this web site] can give the real IP addresses. When the DNS is fucked, I ask for the IP addresses from [this web site], and I add them into my hosts file. However, the IP addresses of web sites are often changed. I have to modify my hosts file over and over, time after time, again and again. You see, the Anti-DNSFucker is designed to liberate myself from this ewwwwww thing. And I hope it can help you, too.
+
+## Supported Operating Systems
+
+- Windows XP,
+- Windows Vista,
+- Windows 7,
+- Windows 8, and
+- Windows 10.
 
 ## How to Use Anti-DNSFucker
 
@@ -60,17 +68,9 @@ One day, I found that [this web site] can give the real IP addresses. When the D
   * <img src = "/Publish/Icons/Run.ico" height = 15 title = "run button"> `F5`,
   * <img src = "/Publish/Icons/Refresh.ico" height = 15 title = "refresh button"> `ctrl` + `R`,
   * <img src = "/Publish/Icons/About.ico" height = 15 title = "about button"> `ctrl` + `H`,
-  * <img src = "/Publish/Icons/Quit.ico" height = 15 title = "quit button"> `atl` + `Q`.
+  * <img src = "/Publish/Icons/Quit.ico" height = 15 title = "quit button"> `alt` + `Q`.
 19. Cannot remember? If you hover your mouse on these buttons, the tooltips will appear.<br>
    ![Tooltip]
-
-## Supported Operating Systems
-
-- Windows XP,
-- Windows Vista,
-- Windows 7,
-- Windows 8, and
-- Windows 10.
 
 ## Built with
 
