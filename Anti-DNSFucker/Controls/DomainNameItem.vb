@@ -1,28 +1,64 @@
-﻿Public Class DomainNameItem
+﻿''' <summary>
+''' This class is the item in the TableLayoutPanelList.
+''' This item contains:
+'''   a CheckBox which is used to indicate if this item is selected,
+'''   a CheckBox which is used to indicate if this item is enable,
+'''   a CheckBox which is used to indicate if get IPv4 address of this item,
+'''   a CheckBox which is used to indicate if get IPv6 address of this item, and
+'''   a TextBox which is used to display the domain name of this item.
+''' </summary>
+Public Class DomainNameItem
+    ' This class inherits TableLayoutPanel.
     Inherits System.Windows.Forms.TableLayoutPanel
 
-    Private CheckBoxSelect As CheckBox
-    Private CheckBoxEnable As CheckBox
-    Private CheckBoxGetIPv6Address As CheckBoxAdvanced
-    Private CheckBoxGetIPv4Address As CheckBoxAdvanced
-    Private TextBoxDomainName As TextBoxWithWaterMark
-
+    ''' <summary>
+    ''' This property is used to store the IPv4 address of this item.
+    ''' </summary>
     Public IPv4Address As String = ""
+    ''' <summary>
+    ''' This property is used to store the IPv6 address of this item.
+    ''' </summary>
     Public IPv6Address As String = ""
-
-    Private Const ItemHeight As Integer = 27
-    Private CheckBoxPadding As Padding = New Padding(0, 0, 0, 0)
-    Private CheckBoxMargin As Padding = New Padding(3, 0, 0, 0)
-    Private TextBoxMargin As Padding = New Padding(3, 3, 3, 3)
+    ''' <summary>
+    ''' This flag is used to indicate if the domain name of this item has been resolved.
+    ''' </summary>
+    Public IsResolved As Boolean = False
+    ''' <summary>
+    ''' This event is triggered when checked state of CheckBoxSelect is changed.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Public Event SelectCheckedChanged(sender As Object, e As EventArgs)
 
-    Delegate Sub DelegateSetCheckBoxGetIPvXEnable()
-    Public IsResolved As Boolean = False
-
+    ' This CheckBox is used to indicate if this item is selected.
+    Private CheckBoxSelect As CheckBox
+    ' This CheckBox which is used to indicate if this item is enable.
+    Private CheckBoxEnable As CheckBox
+    ' This CheckBox which is used to indicate if get IPv4 address of this item.
+    Private CheckBoxGetIPv4Address As CheckBoxAdvanced
+    ' This CheckBox which is used to indicate if get IPv6 address of this item.
+    Private CheckBoxGetIPv6Address As CheckBoxAdvanced
+    ' TextBox which is used to display the domain name of this item.
+    Private TextBoxDomainName As TextBoxWithWaterMark
+    ' This is the height of this item.
+    Private Const ItemHeight As Integer = 27
+    ' This is the padding of all CheckBoxes in this item.
+    Private CheckBoxPadding As Padding = New Padding(0, 0, 0, 0)
+    ' This is the margin of all CheckBoxes in this item.
+    Private CheckBoxMargin As Padding = New Padding(3, 0, 0, 0)
+    ' This is the margin of the TextBox in this item.
+    Private TextBoxMargin As Padding = New Padding(3, 3, 3, 3)
+    ' This color is backcolor of the TextBox if the IP address is resolved successfully.
     Private SuccessfulColor As Color = Color.FromArgb(&HFF7FFF7F)
+    ' This color is backcolor of the TextBox if the IP address is not resolved successfully.
     Private FailedColor As Color = Color.FromArgb(&HFFFF7F7F)
+    ' This delegate refer to sub SetCheckBoxGetIPvXEnable.
+    Delegate Sub DelegateSetCheckBoxGetIPvXEnable()
 
-
+    ''' <summary>
+    ''' This function is used to resolve the IP addresses of the domain name of this item.
+    ''' </summary>
+    ''' <returns>If the domain name is resolved successfully, return true, else, return false.</returns>
     Public Function Resolve() As Boolean
         Dim IP As New IP
         IP.ResolveByNEU(DomainName)
