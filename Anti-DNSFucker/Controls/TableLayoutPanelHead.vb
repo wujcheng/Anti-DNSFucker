@@ -1,19 +1,41 @@
-﻿Public Class TableLayoutPanelHead
+﻿''' <summary>
+''' This class is the head of TableLayoutPanelList.
+''' </summary>
+Public Class TableLayoutPanelHead
+    ' It inherits from TableLayoutPanel.
     Inherits System.Windows.Forms.TableLayoutPanel
 
+    ' This CheckBox is used to select/unselect all the CheckBoxes in the TableLayoutPanelList.
     Private CheckBoxSelectAll As CheckBox
+    ' This is the head of "Domain Name".
     Private LabelDomainName As Label
+    ' This is the head of "Get IPb6".
     Private LabelGetIPv6Address As Label
+    ' This is the head of "Get IPv4".
     Private LabelGetIPv4Address As Label
+    ' This is the head of "Enable".
     Private LabelEnable As Label
 
+    ' This constant is the height if this head.
     Private Const ItemHeight As Integer = 27
+    ' This is the padding of the CheckBox.
     Private CheckBoxPadding As Padding = New Padding(0, 2, 0, 0)
+    ' This is the padding of the Label.
     Private LabelPadding As Padding = New Padding(0, 7, 0, 0)
+    ' This is the transparent color.
     Private TransparentColor As Color = Color.FromArgb(0, Color.Black)
 
+    ''' <summary>
+    ''' This event will triggered when the check state of CheckBoxSelectAll is changed.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Public Event SelectAllCheckedChanged(sender As Object, e As EventArgs)
 
+    ''' <summary>
+    ''' This property represents the check state of the CheckBoxSelectAll.
+    ''' </summary>
+    ''' <returns></returns>
     Public Property SelectAllChecked As CheckState
         Get
             Return CheckBoxSelectAll.CheckState
@@ -23,6 +45,11 @@
         End Set
     End Property
 
+    ''' <summary>
+    ''' This property is writeonly.
+    ''' When this property is assigned True, then add handler CheckBoxSelectAll.CheckedChanged,
+    ''' else, remove handler CheckBoxSelectAll.CheckedChanged.
+    ''' </summary>
     Public WriteOnly Property CheckBoxSelectAllEventEnabled As Boolean
         Set(value As Boolean)
             If value Then
@@ -33,6 +60,10 @@
         End Set
     End Property
 
+    ''' <summary>
+    ''' This is the constructor.
+    ''' </summary>
+    ''' <param name="ColumnStyleList"></param>
     Public Sub New(ByVal ColumnStyleList As ArrayList)
         With Me
             .Height = ItemHeight
@@ -88,10 +119,21 @@
         End With
     End Sub
 
+    ''' <summary>
+    ''' This sub is triggered when the check state of CheckBoxSelectAll is changed.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub CheckBoxSelectAll_CheckedChanged(sender As Object, e As EventArgs)
         RaiseEvent SelectAllCheckedChanged(sender, e)
     End Sub
 
+    ''' <summary>
+    ''' This sub is triggered when this head is painted.
+    ''' It is used to draw borders.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Me_Paint(sender As Object, e As PaintEventArgs)
         Dim Graphics As Graphics = Me.CreateGraphics
         Dim Pen As New Pen(Color.LightGray, 1)

@@ -1,12 +1,32 @@
-﻿Public Class TableLayoutPanelList
+﻿''' <summary>
+''' This class is the container of the DomainNameItem.
+''' </summary>
+Public Class TableLayoutPanelList
+    ' It inherits from TableLayoutPanel.
     Inherits System.Windows.Forms.TableLayoutPanel
 
+    ''' <summary>
+    ''' This property presents the check state of all CheckBoxes.
+    ''' If all ChechBoxes are selected, this property is assigned CheckState.Checked
+    ''' If all CheckBoxes are unselected, this property is assigned CheckState.Unchecked.
+    ''' If some CheckBoxes are selected, and others are unselected, this property is assigned heckState.Indeterminate.
+    ''' </summary>
     Public SelectedState As CheckState = CheckState.Indeterminate
+    ''' <summary>
+    ''' This event is triggered when CheckBox of any DomainNameItem is changed.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Public Event SelectedChanged(sender As Object, e As EventArgs)
-
-    Private ColumnStyleList As ArrayList
+    ''' <summary>
+    ''' This property represent the path of the configuration file.
+    ''' </summary>
     Public ConfigurationPath As String
-
+    ''' <summary>
+    ''' This property is readonly.
+    ''' It indicates whether all domain name is resolved.
+    ''' </summary>
+    ''' <returns></returns>
     Public ReadOnly Property AllResolved As Boolean
         Get
             For Each DomainNameItem As DomainNameItem In Me.Controls
@@ -18,6 +38,13 @@
         End Get
     End Property
 
+    ' This array list is used to store the column styles of this item.
+    Private ColumnStyleList As ArrayList
+
+    ''' <summary>
+    ''' This is the constructor.
+    ''' </summary>
+    ''' <param name="ColumnStyleList"></param>
     Public Sub New(ByVal ColumnStyleList As ArrayList)
         With Me
             .ColumnStyles.Add(New ColumnStyle(SizeType.AutoSize))
@@ -35,6 +62,11 @@
         End With
     End Sub
 
+    ''' <summary>
+    ''' This sub is triggered when the size of TableLayoutPanelList is changed.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Me_ClientSizeChanged(sender As Object, e As EventArgs)
         With Me
             If .VerticalScroll.Visible = True Then

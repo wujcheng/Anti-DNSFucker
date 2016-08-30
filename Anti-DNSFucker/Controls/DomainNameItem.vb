@@ -130,9 +130,9 @@ Public Class DomainNameItem
     Private SuccessfulColor As Color = Color.FromArgb(&HFF7FFF7F)
     ' This color is backcolor of the TextBox if the IP address is not resolved successfully.
     Private FailedColor As Color = Color.FromArgb(&HFFFF7F7F)
-    ' This delegate refer to sub SetCheckBoxGetIPvXEnable.
     ' This array list is used to store the column styles of this item.
     Private ColumnNameList As ArrayList
+    ' This delegate refer to sub SetCheckBoxGetIPvXEnable.
     Delegate Sub DelegateSetCheckBoxGetIPvXEnable()
 
     ''' <summary>
