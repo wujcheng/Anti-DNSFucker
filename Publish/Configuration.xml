@@ -31,7 +31,7 @@
     <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
-    <CheckBoxEnable>True</CheckBoxEnable>
+    <CheckBoxEnable>False</CheckBoxEnable>
     <TextBoxDomainName>scholar.google.com</TextBoxDomainName>
     <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
@@ -124,7 +124,7 @@
     <CheckBoxEnable>True</CheckBoxEnable>
     <TextBoxDomainName>hb.qq.com</TextBoxDomainName>
     <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
-    <CheckBoxGetIPv6Address>True</CheckBoxGetIPv6Address>
+    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
   <DomainNameItemList>
     <CheckBoxEnable>True</CheckBoxEnable>

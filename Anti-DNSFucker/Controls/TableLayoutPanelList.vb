@@ -77,24 +77,38 @@ Public Class TableLayoutPanelList
         End With
     End Sub
 
+    ''' <summary>
+    ''' This function is used to fill the TableLayoutPanelList according to the configuration file.
+    ''' </summary>
+    ''' <param name="ConfigurationPath"></param>
+    ''' <returns></returns>
     Public Function Fill(ByVal ConfigurationPath As String) As Boolean
+        ' Create and load the configuration.
         Dim Configuration As New Configuration
         If Not Configuration.Load(ConfigurationPath) Then
+            ' If there is something wrong, exit this sub.
             Return False
         End If
 
+        ' Create and load the data table.
         Dim DataTable As New DataTable
         If Not Configuration.GetConfig(TableNames.DomainNameItemList, DataTable) Then
+            ' If there is something wrong, exit this sub.
             Return False
         End If
 
+
         With Me
+            ' Clear all elements of the TableLayoutPanelList.
             .Controls.Clear()
             .RowStyles.Clear()
             .RowCount = 0
 
+            ' For each row in the data table,
             For Each Row As DataRow In DataTable.Rows
+                ' create a DomainNameItem,
                 Dim DomainNameItem As New DomainNameItem(ColumnStyleList)
+                ' set the attributes of the DomainNameItem.
                 For Each Column As DataColumn In DataTable.Columns
                     For Each Control As Control In DomainNameItem.Controls
                         If Not Control.Name = Column.Caption Then
@@ -108,6 +122,7 @@ Public Class TableLayoutPanelList
                         End If
                     Next
                 Next
+                ' Add the DomainNameItem into the TableLayoutPanelList.
                 Me.AddItem(DomainNameItem)
             Next
         End With
