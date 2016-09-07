@@ -130,18 +130,34 @@ Public Class TableLayoutPanelList
         Return True
     End Function
 
+    ''' <summary>
+    ''' This function is used to save the TablyLayoutPanelList into the configuration.
+    ''' </summary>
+    ''' <returns></returns>
     Public Function SaveConfiguration() As Boolean
         Return SaveConfiguration(ConfigurationPath)
     End Function
 
+    ''' <summary>
+    ''' This function is used to save the TablyLayoutPanelList into the configuration.
+    ''' Comparing with the above function, this function has a parameter, to which the configuration is saved.
+    ''' </summary>
+    ''' <param name="ConfigurationPath"></param>
+    ''' <returns></returns>
     Public Function SaveConfiguration(ByVal ConfigurationPath As String) As Boolean
+        ' Create a configuration.
         Dim Configuration As New Configuration
+        ' Create an empty data table.
         Dim DataTable As New DataTable
+        ' Set the name of the data table.
         DataTable.TableName = TableNames.DomainNameItemList
 
+        ' If the TablyLayoutPanelList is not empty, fill the data table.
         If Not Me.RowCount = 0 Then
+            ' Get the first item of the TablyLayoutPanelList.
             Dim FirstItem As DomainNameItem = CType(Me.GetControlFromPosition(0, 0), DomainNameItem)
             With DataTable
+                ' Set the columns of the new data table.
                 For Each Control As Control In FirstItem.Controls
                     If Control.Name.Trim = "" Then
                         Continue For
@@ -149,6 +165,7 @@ Public Class TableLayoutPanelList
                     .Columns.Add(Control.Name)
                 Next
 
+                ' For each DomainNameItem, read its values, and fill them into the data table.
                 For i As Integer = 0 To Me.RowCount - 1
                     Dim Row As DataRow = .NewRow
 
@@ -164,21 +181,32 @@ Public Class TableLayoutPanelList
             End With
         End If
 
+        ' Add the data table into the configuration.
         Configuration.SetConfig(DataTable)
+        ' Save the configuration into the file.
         Configuration.SaveAs(ConfigurationPath)
         Return True
     End Function
 
+    ''' <summary>
+    ''' This function is used to refresh the TableLayoutPanelList.
+    ''' </summary>
     Public Overrides Sub Refresh()
+        ' Save the configuration into a temporary file.
         Dim TempPath As String = ".\TempConfiguration.xml"
         Me.SaveConfiguration(TempPath)
+
+        ' Save the position of the scroll bar.
         Dim Position As Point = Me.AutoScrollPosition
+
+        ' Reload the configuration.
         Me.Fill(TempPath)
+
+        ' Set the position of the scroll bar.
         Me.AutoScrollPosition = New Point(-Position.X, -Position.Y)
 
+        ' Delete the temporary file.
         My.Computer.FileSystem.DeleteFile(TempPath)
-
-
     End Sub
 
     Public Sub AddItem()
