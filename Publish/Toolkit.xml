@@ -6,6 +6,24 @@ Toolkit
 </name>
 </assembly>
 <members>
+<member name="T:Toolkit.FormMain">
+ <summary>
+ This form is invisible.
+ This form cannot run without parameter. If there is no parameter, the form will be disposed.
+ There is only one parameter of this form. In other words, this form is used to do only one thing:
+ move the hosts file to "X:\Windows\System32\drivers\etc\hosts".
+ </summary>
+</member>
+<member name="M:Toolkit.FormMain.#ctor">
+ <summary>
+ This is the constructor.
+ </summary>
+</member>
+<member name="M:Toolkit.FormMain.MoveHostsFile">
+ <summary>
+ This sub is used to move the '.\hosts' file to "X:\Windows\System32\drivers\etc\hosts".
+ </summary>
+</member>
 <member name="T:Toolkit.My.Resources.Resources">
 <summary>
   A strongly-typed resource class, for looking up localized strings, etc.

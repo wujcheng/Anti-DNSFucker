@@ -138,4 +138,28 @@
     <CheckBoxGetIPv4Address>True</CheckBoxGetIPv4Address>
     <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
   </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>True</CheckBoxEnable>
+    <TextBoxDomainName />
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>True</CheckBoxEnable>
+    <TextBoxDomainName />
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>True</CheckBoxEnable>
+    <TextBoxDomainName />
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
+  <DomainNameItemList>
+    <CheckBoxEnable>True</CheckBoxEnable>
+    <TextBoxDomainName />
+    <CheckBoxGetIPv4Address>False</CheckBoxGetIPv4Address>
+    <CheckBoxGetIPv6Address>False</CheckBoxGetIPv6Address>
+  </DomainNameItemList>
 </NewDataSet>

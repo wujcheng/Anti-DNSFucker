@@ -209,29 +209,25 @@ Public Class TableLayoutPanelList
         My.Computer.FileSystem.DeleteFile(TempPath)
     End Sub
 
+    ''' <summary>
+    ''' This function is used to add an empty DomainNameItem into the TableLayoutPanelList.
+    ''' </summary>
     Public Sub AddItem()
-        Dim DomainNameItem As New DomainNameItem(ColumnStyleList)
-        With DomainNameItem
-            .Dock = DockStyle.Fill
-            AddHandler .SelectCheckedChanged, AddressOf DomainNameItem_SelectCheckedChanged
-        End With
-
-        With Me
-            .RowStyles.Add(New RowStyle(SizeType.AutoSize))
-            .Controls.Add(DomainNameItem)
-            .RowCount += 1
-            .ScrollControlIntoView(DomainNameItem)
-        End With
-
-        DomainNameItem_SelectCheckedChanged(Nothing, Nothing)
+        AddItem(New DomainNameItem(ColumnStyleList))
     End Sub
 
+    ''' <summary>
+    ''' This function is used to add the DomainNameItem into the TableLayoutPanelList.
+    ''' </summary>
+    ''' <param name="DomainNameItem"></param>
     Public Sub AddItem(ByVal DomainNameItem As DomainNameItem)
+        ' Set the dock attribute and add a handler.
         With DomainNameItem
             .Dock = DockStyle.Fill
             AddHandler .SelectCheckedChanged, AddressOf DomainNameItem_SelectCheckedChanged
         End With
 
+        ' Add this empty DomainNameItem into the TableLayoutPanelList.
         With Me
             .RowStyles.Add(New RowStyle(SizeType.AutoSize))
             .Controls.Add(DomainNameItem)
@@ -239,22 +235,30 @@ Public Class TableLayoutPanelList
             .ScrollControlIntoView(DomainNameItem)
         End With
 
+        ' Raise the event SelectedChanged.
         DomainNameItem_SelectCheckedChanged(Nothing, Nothing)
     End Sub
 
+    ''' <summary>
+    ''' This function is used to remove the selected DomainNameItems from the TableLayoutPanelList.
+    ''' </summary>
     Public Sub RemoveSelectedItems()
+        ' Create an array to store the DomainNameItems which are selected.
         Dim RemovedItemList As ArrayList = New ArrayList
 
+        ' For each DomainNameItem in the TableLayoutPanelList,
         For i As Integer = 0 To Me.RowCount - 1
             With CType(Me.GetControlFromPosition(0, i), DomainNameItem)
                 If Not .Selected Then
                     Continue For
                 End If
 
+                ' if it is selected, add it into the array.
                 RemovedItemList.Add(Me.GetControlFromPosition(0, i))
             End With
         Next
 
+        ' Remove all DomainNameItems of the array from the TableLayoutPanelList.
         For Each RemovedItem As DomainNameItem In RemovedItemList
             Me.Controls.Remove(RemovedItem)
             Me.RowStyles.RemoveAt(Me.RowStyles.Count - 1)

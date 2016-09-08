@@ -6,6 +6,307 @@ Anti-DNSFucker
 </name>
 </assembly>
 <members>
+<member name="T:AntiDNSFucker.CheckBoxAdvanced">
+ <summary>
+ This class inherits CheckBox, and it is an advanced CheckBox.
+ Comparing with the CheckBox, CheckBoxAdvanced has a public property: Broken, which is a Boolean.
+ If the property Broken is True, the properties Enabled and Checked cannot be operated.
+ </summary>
+</member>
+<member name="P:AntiDNSFucker.CheckBoxAdvanced.Broken">
+ <summary>
+ This is the newly added property: Broken. 
+ The value of this proporty is save in the IsBroken which is a Boolean, too.
+ If the property Broken is assigned True, the properties Enabled and Checked is assigned False.
+ </summary>
+ <returns></returns>
+</member>
+<member name="F:AntiDNSFucker.CheckBoxAdvanced.IsBroken">
+ <summary>
+ This property is used to save the value of the property Broken.
+ </summary>
+</member>
+<member name="P:AntiDNSFucker.CheckBoxAdvanced.Enabled">
+ <summary>
+ This is property is used to override the property Enabled.
+ If this property is read, there is nothing different.
+ But if this property is assigned, the property Broken is checked first.
+ If the property Broken is True, the property Enabled does not work.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:AntiDNSFucker.CheckBoxAdvanced.Checked">
+ <summary>
+ This is property is used to override the property Checked.
+ If this property is read, there is nothing different.
+ But if this property is assigned, the property Broken is checked first.
+ If the property Broken is True, the property Checked does not work.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:AntiDNSFucker.CheckBoxAdvanced.#ctor">
+ <summary>
+ This is the constructor.
+ </summary>
+</member>
+<member name="T:AntiDNSFucker.DomainNameItem">
+ <summary>
+ This class is the item in the TableLayoutPanelList.
+ This item contains:
+   a CheckBox which is used to indicate if this item is selected,
+   a CheckBox which is used to indicate if this item is enable,
+   a CheckBox which is used to indicate if get IPv4 address of this item,
+   a CheckBox which is used to indicate if get IPv6 address of this item, and
+   a TextBox which is used to display the domain name of this item.
+ </summary>
+</member>
+<member name="F:AntiDNSFucker.DomainNameItem.IPv4Address">
+ <summary>
+ This property is used to store the IPv4 address of this item.
+ </summary>
+</member>
+<member name="F:AntiDNSFucker.DomainNameItem.IPv6Address">
+ <summary>
+ This property is used to store the IPv6 address of this item.
+ </summary>
+</member>
+<member name="F:AntiDNSFucker.DomainNameItem.IsResolved">
+ <summary>
+ This flag is used to indicate if the domain name of this item has been resolved.
+ </summary>
+</member>
+<member name="E:AntiDNSFucker.DomainNameItem.SelectCheckedChanged">
+ <summary>
+ This event is triggered when checked state of CheckBoxSelect is changed.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="P:AntiDNSFucker.DomainNameItem.Selected">
+ <summary>
+ This property is used to indicate if this item is selected.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:AntiDNSFucker.DomainNameItem.Enabled">
+ <summary>
+ This property is used to indicate if this item is enabled.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:AntiDNSFucker.DomainNameItem.GetIPv4Address">
+ <summary>
+ This property is used to indicate if get IPv4 address of the domain name of this item.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:AntiDNSFucker.DomainNameItem.GetIPv6Address">
+ <summary>
+ This property is used to indicate if get IPv6 address of the domain name of this item.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:AntiDNSFucker.DomainNameItem.DomainName">
+ <summary>
+ This property is the domain name of this item.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:AntiDNSFucker.DomainNameItem.CheckBoxSelectEventEnabled">
+ <summary>
+ This writeonly property is used to enable/disable the CheckedChanged event of CheckBoxSelect.
+ </summary>
+</member>
+<member name="M:AntiDNSFucker.DomainNameItem.#ctor(System.Collections.ArrayList)">
+ <summary>
+ This is the constructor.
+ </summary>
+ <param name="ColumnStyleList"></param>
+</member>
+<member name="M:AntiDNSFucker.DomainNameItem.Resolve">
+ <summary>
+ This function is used to resolve the IP addresses of the domain name of this item.
+ </summary>
+ <returns>If the domain name is resolved successfully, return true, else, return false.</returns>
+</member>
+<member name="M:AntiDNSFucker.DomainNameItem.SetCheckBoxGetIPvXEnable">
+ <summary>
+ This sub is used to set the properties Broken, Enable, and BackColor of this item according to the result of resolving.
+ </summary>
+</member>
+<member name="M:AntiDNSFucker.DomainNameItem.TextBoxDomainName_TextChanged(System.Object,System.EventArgs)">
+ <summary>
+ This sub will be triggered when the text of TextBoxDomainName is changed.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:AntiDNSFucker.DomainNameItem.CheckBox_CheckedChanged(System.Object,System.EventArgs)">
+ <summary>
+ This sub will be triggered when check state of CheckBoxEnable or CheckBoxSelect is changed.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:AntiDNSFucker.DomainNameItem.Me_Paint(System.Object,System.Windows.Forms.PaintEventArgs)">
+ <summary>
+ This sub is used to draw vertical line on this item.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:AntiDNSFucker.DomainNameItem.GetValueByName(System.String)">
+ <summary>
+ This function is used to get the value of control by name of the control.
+ If there is no this control, return an empty string.
+ </summary>
+ <param name="Name"></param>
+ <returns></returns>
+</member>
+<member name="T:AntiDNSFucker.StatusStripMain">
+ <summary>
+ This class is the status strip at the bottom of the FormMain.
+ </summary>
+</member>
+<member name="M:AntiDNSFucker.StatusStripMain.#ctor">
+ <summary>
+ This is the constructor.
+ </summary>
+</member>
+<member name="M:AntiDNSFucker.StatusStripMain.ShowMessage(System.String)">
+ <summary>
+ This sub is used to show the message on the Label.
+ </summary>
+ <param name="Message"></param>
+</member>
+<member name="T:AntiDNSFucker.TableLayoutPanelHead">
+ <summary>
+ This class is the head of TableLayoutPanelList.
+ </summary>
+</member>
+<member name="E:AntiDNSFucker.TableLayoutPanelHead.SelectAllCheckedChanged">
+ <summary>
+ This event will triggered when the check state of CheckBoxSelectAll is changed.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="P:AntiDNSFucker.TableLayoutPanelHead.SelectAllChecked">
+ <summary>
+ This property represents the check state of the CheckBoxSelectAll.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:AntiDNSFucker.TableLayoutPanelHead.CheckBoxSelectAllEventEnabled">
+ <summary>
+ This property is writeonly.
+ When this property is assigned True, then add handler CheckBoxSelectAll.CheckedChanged,
+ else, remove handler CheckBoxSelectAll.CheckedChanged.
+ </summary>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelHead.#ctor(System.Collections.ArrayList)">
+ <summary>
+ This is the constructor.
+ </summary>
+ <param name="ColumnStyleList"></param>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelHead.CheckBoxSelectAll_CheckedChanged(System.Object,System.EventArgs)">
+ <summary>
+ This sub is triggered when the check state of CheckBoxSelectAll is changed.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelHead.Me_Paint(System.Object,System.Windows.Forms.PaintEventArgs)">
+ <summary>
+ This sub is triggered when this head is painted.
+ It is used to draw borders.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="T:AntiDNSFucker.TableLayoutPanelList">
+ <summary>
+ This class is the container of the DomainNameItem.
+ </summary>
+</member>
+<member name="F:AntiDNSFucker.TableLayoutPanelList.SelectedState">
+ <summary>
+ This property presents the check state of all CheckBoxes.
+ If all ChechBoxes are selected, this property is assigned CheckState.Checked
+ If all CheckBoxes are unselected, this property is assigned CheckState.Unchecked.
+ If some CheckBoxes are selected, and others are unselected, this property is assigned heckState.Indeterminate.
+ </summary>
+</member>
+<member name="E:AntiDNSFucker.TableLayoutPanelList.SelectedChanged">
+ <summary>
+ This event is triggered when CheckBox of any DomainNameItem is changed.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="F:AntiDNSFucker.TableLayoutPanelList.ConfigurationPath">
+ <summary>
+ This property represent the path of the configuration file.
+ </summary>
+</member>
+<member name="P:AntiDNSFucker.TableLayoutPanelList.AllResolved">
+ <summary>
+ This property is readonly.
+ It indicates whether all domain name is resolved.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.#ctor(System.Collections.ArrayList)">
+ <summary>
+ This is the constructor.
+ </summary>
+ <param name="ColumnStyleList"></param>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.Me_ClientSizeChanged(System.Object,System.EventArgs)">
+ <summary>
+ This sub is triggered when the size of TableLayoutPanelList is changed.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.Fill(System.String)">
+ <summary>
+ This function is used to fill the TableLayoutPanelList according to the configuration file.
+ </summary>
+ <param name="ConfigurationPath"></param>
+ <returns></returns>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.SaveConfiguration">
+ <summary>
+ This function is used to save the TablyLayoutPanelList into the configuration.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.SaveConfiguration(System.String)">
+ <summary>
+ This function is used to save the TablyLayoutPanelList into the configuration.
+ Comparing with the above function, this function has a parameter, to which the configuration is saved.
+ </summary>
+ <param name="ConfigurationPath"></param>
+ <returns></returns>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.Refresh">
+ <summary>
+ This function is used to refresh the TableLayoutPanelList.
+ </summary>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.AddItem">
+ <summary>
+ This function is used to add an empty DomainNameItem into the TableLayoutPanelList.
+ </summary>
+</member>
+<member name="M:AntiDNSFucker.TableLayoutPanelList.AddItem(AntiDNSFucker.DomainNameItem)">
+ <summary>
+ This function is used to add the DomainNameItem into the TableLayoutPanelList.
+ </summary>
+ <param name="DomainNameItem"></param>
+</member>
 <member name="T:AntiDNSFucker.My.Resources.Resources">
 <summary>
   一个强类型的资源类，用于查找本地化的字符串等。
