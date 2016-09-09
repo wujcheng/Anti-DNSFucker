@@ -265,27 +265,42 @@ Public Class TableLayoutPanelList
             Me.RowCount -= 1
         Next
 
+        ' Resume the position of scroll bar.
         Dim Position As Point = Me.AutoScrollPosition
         Me.AutoScroll = False
         Me.AutoScroll = True
         Me.AutoScrollPosition = New Point(-Position.X, -Position.Y)
 
+        ' Raise the event SelectedChanged.
         DomainNameItem_SelectCheckedChanged(Nothing, Nothing)
     End Sub
 
+    ''' <summary>
+    ''' This sub is used to select all DomainNameItems in the TableLayoutPanelList.
+    ''' </summary>
+    ''' <param name="Selected"></param>
     Public Sub SelectAllItems(Optional Selected As Boolean = True)
         For i As Integer = 0 To Me.RowCount - 1
             With CType(Me.GetControlFromPosition(0, i), DomainNameItem)
+                ' Before selecting this DomainNameItem, disable its CheckBoxSelect event.
                 .CheckBoxSelectEventEnabled = False
                 .Selected = Selected
+                ' After selecting, enable its CheckBoxSelect event.
                 .CheckBoxSelectEventEnabled = True
             End With
         Next
     End Sub
 
+    ''' <summary>
+    ''' This sub is triggered when any DomainNameItem's select state is changed.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Public Sub DomainNameItem_SelectCheckedChanged(sender As Object, e As EventArgs)
+        ' This counter is used to count how many DomainNameItems are selected.
         Dim SelectedCount As Integer = 0
 
+        ' Count the number of DomainNameItems are selected.
         For i As Integer = 0 To Me.RowCount - 1
             With CType(Me.GetControlFromPosition(0, i), DomainNameItem)
                 SelectedCount += If(.Selected, 1, 0)
@@ -294,16 +309,24 @@ Public Class TableLayoutPanelList
 
         Select Case SelectedCount
             Case 0
+                ' If there is no DomainNameItem is selected, the selected state is unchecked.
                 SelectedState = CheckState.Unchecked
             Case Me.RowCount
+                ' If all DomainNameItems are selected, the selected state is checked.
                 SelectedState = CheckState.Checked
             Case Else
+                ' In other situations, the selected state is indeterminate.
                 SelectedState = CheckState.Indeterminate
         End Select
 
+        ' Raise the event SelectedChanged.
         RaiseEvent SelectedChanged(sender, e)
     End Sub
 
+    ''' <summary>
+    ''' This sub is used to enable/disable selected DomainNameItems.
+    ''' </summary>
+    ''' <param name="Enabled"></param>
     Public Sub EnableSelectedItems(ByVal Enabled As Boolean)
         For Each DomainNameItem As DomainNameItem In Me.Controls
             If DomainNameItem.Selected Then
@@ -312,6 +335,11 @@ Public Class TableLayoutPanelList
         Next
     End Sub
 
+    ''' <summary>
+    ''' This sub is used to enable/disable GetIPvX checkboxes of the selected DomainNameItems.
+    ''' </summary>
+    ''' <param name="Enabled"></param>
+    ''' <param name="Version"></param>
     Public Sub GetIPvXAddressSelectedItems(ByVal Enabled As Boolean, ByVal Version As Integer)
         For Each DomainNameItem As DomainNameItem In Me.Controls
             If DomainNameItem.Selected Then
