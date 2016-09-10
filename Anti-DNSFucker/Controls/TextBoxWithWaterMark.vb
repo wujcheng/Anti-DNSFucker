@@ -1,5 +1,8 @@
 ﻿Imports System.Runtime.InteropServices
 
+''' <summary>
+''' This class is a TextBox with a water mark.
+''' </summary>
 Public Class TextBoxWithWaterMark
     Inherits System.Windows.Forms.TextBox
 
@@ -10,6 +13,11 @@ Public Class TextBoxWithWaterMark
     Private Shared Function SendMessage(hWnd As IntPtr, Msg As UInteger, wParam As UInteger, <MarshalAs(UnmanagedType.LPWStr)> lParam As String) As IntPtr
     End Function
 
+    ''' <summary>
+    ''' This property is the water mark text of this TextBox.
+    ''' It is saved in Tag of this TextBox.
+    ''' </summary>
+    ''' <returns></returns>
     Public Property WaterMarkText As String
         Get
             Return Me.Tag
@@ -20,11 +28,11 @@ Public Class TextBoxWithWaterMark
         End Set
     End Property
 
+    ''' <summary>
+    ''' This sub is used to set the water mark property.
+    ''' </summary>
+    ''' <param name="waterMarkText"></param>
     Private Sub SetWaterMark(waterMarkText As String)
         SendMessage(Me.Handle, EM_SETCUEBANNER, 0, waterMarkText)
-    End Sub
-
-    Public Sub New()
-        'Me.BorderStyle = BorderStyle.FixedSingle
     End Sub
 End Class
